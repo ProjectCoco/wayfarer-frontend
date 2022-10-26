@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  compiler: {
+    styledComponents: true, // styled-components classname Erorr
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -69,6 +69,7 @@ const Title = styled.div`
   font-size: 30px;
   margin-top: 20px;
   line-height: 37.56px;
+  font-weight: 500;
 `;
 
 const HashTagBox = styled.div`

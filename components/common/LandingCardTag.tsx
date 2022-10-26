@@ -25,13 +25,15 @@ function LandingCardTag({ mode }: Props) {
 export default LandingCardTag;
 
 const TagBox = styled.div<{ mode: TagMode }>`
-  padding: 4px 8px;
-  border: solid 1px gray;
   width: fit-content;
+  padding: 4px 8px;
   border-radius: 6px;
+  border: solid 1px
+    ${({ mode, theme }) =>
+      mode === "HOT" ? theme.colors.sub_blue3 : theme.colors.gray_500};
 
   p {
-    color: ${(props) =>
-      props.mode === "HOT" ? props.theme.colors.sub_blue3 : "blue"};
+    color: ${({ mode, theme }) =>
+      mode === "HOT" ? theme.colors.sub_blue3 : theme.colors.gray_600};
   }
 `;

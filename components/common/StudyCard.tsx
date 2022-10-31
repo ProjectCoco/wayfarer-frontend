@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Image from "next/image";
 import { CardImg } from "../../public/CardImg";
 import HashTag from "./HashTag";
-import { ExpectStartDate, TechStackBox, View } from "./LandingCard";
+import { ExpectStartDate, TagBox, TechStackBox, View } from "./LandingCard";
 import TechStackTag from "./TechStackTag";
 import { TechStackImgType } from "../../public/TechStackImg";
+import LandingCardTag from "./LandingCardTag";
 
 const Tags = ["프로젝트", "온라인", "1명", "3개월"];
 const TechStacks = ["vue", "figma", "django"];
@@ -15,6 +16,10 @@ function StudyCard() {
     <Container>
       <Image src={CardImg.ProjectHorizontalImg} alt={"landing_card"} />
       <Content>
+        <TagBox2>
+          <LandingCardTag mode="HOT" />
+          <LandingCardTag mode="모집중" />
+        </TagBox2>
         <Title>프로젝트 명 어쩌구 타이틀은2줄까지 넘으면 점점</Title>
         <HashTagBox>
           {Tags.map((tag, index) => (
@@ -51,8 +56,12 @@ const Content = styled.div`
   padding-right: 36px;
 `;
 
+const TagBox2 = styled(TagBox)`
+  margin-top: 8px;
+`;
+
 const Title = styled.h1`
-  margin-top: 48.5px;
+  margin-top: 8px;
   color: ${({ theme }) => theme.colors.gray_700};
   font-weight: 500;
   font-size: 30px;

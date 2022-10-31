@@ -58,7 +58,7 @@ const RightImgBox = styled.div`
   width: 29.2%;
 `;
 
-const TagBox = styled.div`
+export const TagBox = styled.div`
   display: flex;
   margin-top: 25px;
   gap: 8px;

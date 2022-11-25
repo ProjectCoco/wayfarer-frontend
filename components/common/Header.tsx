@@ -1,86 +1,85 @@
-import React, { useState } from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import LogoImg from "../../public/Logo/Logo.svg";
 
-const HeaderMenu = ["홈", "스터디", "사이드프로젝트", "Q&A"];
+const Menus = ["홈", "스터디", "사이드프로젝트", "Q&A"];
 
 const Header = () => {
-  const [selected, setSelected] = useState<string | null>("홈");
+  const [selected, setSelected] = useState("홈");
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const onTabClick = (tabName: string) => {
     setSelected(tabName);
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 80) setIsScrolled(true);
+      else setIsScrolled(false);
+    });
+
+    return () => window.removeEventListener("scroll", () => {});
+  }, []);
+
   return (
-    <HeaderContainer>
-      <InnerContainer>
-        <Logo />
-        <div className="menus">
-          {HeaderMenu.map((el) => (
+    <HeaderContainer isScrolled={isScrolled}>
+      <Image src={LogoImg} alt="WayfarerLogo" />
+      <Tabs>
+        <MenuTabs>
+          {Menus.map((el) => (
             <span
-              className={`menu${el === selected ? " selected" : ""}`}
+              className={`${el === selected ? "selected" : ""}`}
               key={el}
               onClick={() => onTabClick(el)}
             >
               {el}
             </span>
           ))}
-        </div>
-        <div className="member-menu">
-          <span className="signup">회원가입/로그인</span>
-        </div>
-      </InnerContainer>
+        </MenuTabs>
+        <Login>로그인</Login>
+      </Tabs>
     </HeaderContainer>
   );
 };
 
 export default Header;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.div<{ isScrolled: boolean }>`
   width: 100%;
-  height: 85px;
+  height: 100px;
+  padding: 0 35.32px;
+  position: fixed;
   display: flex;
   align-items: center;
-  justify-content: center;
+  font-size: 25px;
+  color: #999999;
+  background-color: ${(props) =>
+    props.isScrolled ? `${props.theme.colors.Cosmic_black}` : "transparent"};
+  z-index: 10;
 `;
 
-const InnerContainer = styled.div`
-  width: 1200px;
+const Tabs = styled.div`
+  width: 1280px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  font-size: 24px;
-  font-weight: 500;
+  align-items: center;
+  margin-left: 75.24px;
+`;
 
+const MenuTabs = styled.div`
   span {
     cursor: pointer;
-  }
-
-  .menus {
-    margin-right: 105px;
-  }
-
-  .menu {
-    margin-right: 36px;
-    color: ${({ theme }) => theme.colors.gray_400};
-  }
-
-  .member-menu {
-    color: ${({ theme }) => theme.colors.gray_600};
-  }
-
-  .signup {
-    margin-right: 30px;
-    font-size: 20px;
+    margin-right: 80px;
   }
 
   .selected {
-    color: #000000;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.Blue};
+    color: #ffffff;
+    font-weight: bold;
   }
 `;
 
-const Logo = styled.div`
-  width: 220px;
-  height: 60px;
-  background-color: lightgray;
+const Login = styled.div`
+  color: #ffffff;
+  cursor: pointer;
 `;

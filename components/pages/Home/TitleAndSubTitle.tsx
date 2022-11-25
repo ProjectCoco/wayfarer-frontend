@@ -3,14 +3,12 @@ import styled from "styled-components";
 
 interface Props {
   title: string;
-  subTitle: string;
 }
 
-function TitleAndSubTitle({ title, subTitle }: Props) {
+function TitleAndSubTitle({ title }: Props) {
   return (
     <Container>
       <Title>{title}</Title>
-      <SubTitle>{subTitle}</SubTitle>
     </Container>
   );
 }

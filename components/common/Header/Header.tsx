@@ -1,26 +1,15 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import LogoImg from "../../public/Logo/Logo.svg";
+import useHeaderScroll from "../../../hooks/Header/useHeaderScroll";
+import useMenuSelect from "../../../hooks/Header/useMenuSelect";
+import LogoImg from "../../../public/Logo/Logo.svg";
 
 const Menus = ["홈", "스터디", "사이드프로젝트", "Q&A"];
 
 const Header = () => {
-  const [selected, setSelected] = useState("홈");
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const onTabClick = (tabName: string) => {
-    setSelected(tabName);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 80) setIsScrolled(true);
-      else setIsScrolled(false);
-    });
-
-    return () => window.removeEventListener("scroll", () => {});
-  }, []);
+  const { isScrolled } = useHeaderScroll();
+  const { selected, onTabClick } = useMenuSelect();
 
   return (
     <HeaderContainer isScrolled={isScrolled}>
@@ -57,6 +46,10 @@ const HeaderContainer = styled.div<{ isScrolled: boolean }>`
   background-color: ${(props) =>
     props.isScrolled ? `${props.theme.colors.Cosmic_black}` : "transparent"};
   z-index: 10;
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 const Tabs = styled.div`

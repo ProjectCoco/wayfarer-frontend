@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TabMenus, TabTechStacks, TabMenuType } from "../../utils/studyTabMenu";
-import Banner from "../../components/common/Banner";
+import Banner from "../../components/common/Banner/Banner";
 
 function Study() {
   const [toggle, setToggle] = useState(false);
@@ -19,7 +19,7 @@ function Study() {
 
   return (
     <StudyContainer>
-      <Banner />
+      <Banner text={"모집글 작성하기"} />
       <InnerContainer></InnerContainer>
     </StudyContainer>
   );

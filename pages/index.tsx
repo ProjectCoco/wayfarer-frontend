@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-
-import Banner from "../components/common/Banner";
+import Banner from "../components/common/Banner/Banner";
 
 const Home: NextPage = () => {
   return (
     <HomeContainer>
-      <Banner />
+      <Banner text={"모집글 작성하기"} />
       <ContentsContainer></ContentsContainer>
     </HomeContainer>
   );
@@ -19,8 +18,8 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin-bottom: 100px;
+  height: 150vh;
 `;
 
 const ContentsContainer = styled.div`

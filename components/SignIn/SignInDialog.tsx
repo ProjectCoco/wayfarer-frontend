@@ -13,10 +13,12 @@ interface Props {
 }
 
 function SignInDialog() {
-  const { close } = useDialog();
   return (
     <>
-      <DialogHeader title={"회원가입"} onClose={close} />
+      <DialogHeader
+        title={"회원가입"}
+        subTitle={"웨이페어에 오신것을 환영합니다 :)"}
+      />
       <Main></Main>
       <ButtonBox />
     </>

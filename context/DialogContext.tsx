@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import Modal from "../components/modal/Modal";
-import SignInDialog from "../components/SignIn/SignInDialog";
 
 interface ConfigOption {
   onClose(): void;

@@ -2,22 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import CloseIcon from "../../public/common/ico_close.svg";
+import { useDialog } from "../../context/DialogContext";
 
 interface Props {
   title: string;
-  onClose(): void;
+  subTitle: string;
 }
 
-function DialogHeader({ title, onClose }: Props) {
+function DialogHeader({ title, subTitle }: Props) {
+  const { close } = useDialog();
   return (
     <Block>
       <TopTitle>
         <Title>{title}</Title>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={() => close()}>
           <Image src={CloseIcon} alt="closeIcon" />
         </CloseButton>
       </TopTitle>
-      <SubTitle>웨이페어에 오신것을 환영합니다 :)</SubTitle>
+      <SubTitle>{subTitle}</SubTitle>
     </Block>
   );
 }
@@ -41,7 +43,7 @@ const Title = styled.h1`
   font-weight: 700;
   font-size: 30px;
   line-height: 36px;
-  color: ${({ theme }) => theme.colors.gray_800};
+  color: #2d2d2f;
 `;
 
 const CloseButton = styled.div`
@@ -54,4 +56,5 @@ const SubTitle = styled.h2`
   font-size: 14px;
   line-height: 17px;
   color: #222222;
+  opacity: 0.7;
 `;

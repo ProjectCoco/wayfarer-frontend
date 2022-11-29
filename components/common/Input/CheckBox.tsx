@@ -1,12 +1,23 @@
 import React, { useId } from "react";
 import styled from "styled-components";
 
-function CheckBox() {
-  const Id = useId();
+interface Props {
+  checked: boolean;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function CheckBox({ checked, name, onChange }: Props) {
   return (
     <Block>
-      <input type="checkbox" id={Id} defaultChecked={true} />
-      <label htmlFor={Id}></label>
+      <input
+        type="checkbox"
+        id={name}
+        checked={checked}
+        name={name}
+        onChange={onChange}
+      />
+      <label htmlFor={name}></label>
     </Block>
   );
 }

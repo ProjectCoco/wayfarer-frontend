@@ -4,12 +4,15 @@ import CheckBox from "../common/Input/CheckBox";
 
 interface Props {
   label: string;
+  checked: boolean;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function LabelCheck({ label }: Props) {
+function LabelCheck({ label, checked, name, onChange }: Props) {
   return (
     <Block>
-      <CheckBox />
+      <CheckBox checked={checked} name={name} onChange={onChange} />
       <Label>{label}</Label>
     </Block>
   );

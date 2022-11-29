@@ -6,14 +6,27 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-function LabelInput({ label, placeholder, type }: Props) {
+function LabelInput({
+  label,
+  placeholder,
+  type,
+  value,
+  onChange,
+  name,
+}: Props) {
   return (
     <Block>
       <Label>
         <span>{label}</span>
         <Asterisk />
       </Label>
-      <Input type={type} placeholder={placeholder} />
+      <Input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </Block>
   );
 }

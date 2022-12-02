@@ -14,15 +14,22 @@ function useSignUpForm() {
     });
   };
 
+  const handleDropClick = (selected: string) => {
+    setForm({
+      ...form,
+      Interests: selected,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(form);
+    console.log("폼 전송 준비", form);
   };
 
   return {
     form,
     handleInputChange,
     handleSubmit,
+    handleDropClick,
   };
 }
 

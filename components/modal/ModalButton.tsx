@@ -2,13 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  isAllFill?: boolean;
   title: string;
 }
 
-function SubmitButton({ isAllFill, onClick, title }: Props) {
+function SubmitButton({ onClick, title, disabled }: Props) {
   return (
-    <Button onClick={onClick} disabled={!isAllFill}>
+    <Button onClick={onClick} disabled={disabled}>
       {title}
     </Button>
   );

@@ -11,7 +11,7 @@ function SignInDialog() {
         title={"회원가입"}
         subTitle={"웨이페어에 오신것을 환영합니다 :)"}
       />
-      <Main></Main>
+      <Blank />
       <ButtonBox />
     </>
   );
@@ -19,7 +19,7 @@ function SignInDialog() {
 
 export default SignInDialog;
 
-const Main = styled.div`
+const Blank = styled.div`
   width: 100%;
-  height: 300px;
+  height: 150px;
 `;

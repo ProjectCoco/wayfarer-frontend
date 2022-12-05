@@ -6,15 +6,14 @@ import LabelInput from "./LabelInput";
 import ModalButton from "../ModalButton";
 import Image from "next/image";
 import ArrowIcon from "../../../public/common/btn_arrow.svg";
-import useSignUpForm from "../../../hooks/Signup/useSignUpForm";
-import useChecked from "../../../hooks/Signup/useChecked";
+import useSignUpForm from "../../../hooks/SignUp/useSignUpForm";
+import useChecked from "../../../hooks/SignUp/useChecked";
 import DialogHeader from "../SignIn/DialogHeader";
 
 function SignUpDialog() {
   const { form, handleInputChange, handleSubmit, handleDropClick } =
     useSignUpForm();
   const { check, handleCheck, handleAllCheck } = useChecked();
-  console.log(form);
   return (
     <>
       <DialogHeader
@@ -71,7 +70,7 @@ function SignUpDialog() {
         </CheckBoxBlock>
         <ModalButton
           title="가입하기"
-          isAllFill={form.nickname !== "" && form.Interests !== ""}
+          disabled={!form.Interests || !form.nickname ? true : false}
         />
       </InputForm>
     </>

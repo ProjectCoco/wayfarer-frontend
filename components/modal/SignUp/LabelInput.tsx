@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Asterisk from "../../common/Input/Asterisk";
+import StyleInput from "./ModalInput";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -23,7 +24,7 @@ function LabelInput({
         <span>{label}</span>
         <Asterisk />
       </Label>
-      <Input
+      <StyleInput
         name={name}
         type={type}
         placeholder={placeholder}
@@ -52,25 +53,6 @@ const Label = styled.label`
     line-height: 17px;
     color: #222222;
     letter-spacing: -0.03em;
-  }
-`;
-
-const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid #c2c2c2;
-  padding-bottom: 8px;
-
-  &::placeholder {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: -0.03em;
-    color: #222222;
-    opacity: 0.3;
-  }
-
-  &:focus {
-    outline: none;
   }
 `;
 

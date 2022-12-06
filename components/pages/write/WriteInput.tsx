@@ -10,6 +10,7 @@ function WriteInput({
   value,
   onChange,
   onClick,
+  onKeyUp,
 }: Props) {
   return (
     <StyledInput
@@ -19,6 +20,7 @@ function WriteInput({
       value={value}
       onChange={onChange}
       onClick={onClick}
+      onKeyUp={onKeyUp}
     />
   );
 }

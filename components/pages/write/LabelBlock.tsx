@@ -19,7 +19,7 @@ export default LabelBlock;
 
 const Block = styled.div`
   width: 100%;
-  height: 39px;
+  min-height: 39px;
   border-bottom: solid 1px black;
   border-color: rgba(0, 0, 0, 0.3);
   display: flex;

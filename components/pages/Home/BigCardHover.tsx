@@ -2,30 +2,22 @@ import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import LikeImg from "../../../public/Cards/BigCards/Like.svg";
+import { BigCardProps } from "./BigCards";
 
-const projectData = {
-  name: "[프로젝트] 플러터",
-  title: "덕질 아카이빙 서비스 '플러터'의 멤버를 모집합니다",
-  memeber: "프론트엔드(1) / 백엔드(2) / UX UI 디자이너(1)",
-  tag: ["덕질", "어덕행덕", "OTT", "개발자", "개발자"],
-  stack: ["a", "f", "k", "i", "r", "t"],
-  period: "11.2~12.3",
-};
-
-const BigCardHover = () => {
+const BigCardHover = (data: BigCardProps) => {
   return (
     <CardContainer>
       <CardImg>
-        <ProjectHeader>
-          <span>{projectData.name}</span>
+        <ProjectHeader like={data.like}>
+          <span>{data.name}</span>
           <Image src={LikeImg} alt="Like" />
         </ProjectHeader>
-        <ProjectMemeber>{projectData.memeber}</ProjectMemeber>
+        <ProjectMemeber>{data.memeber}</ProjectMemeber>
         <Stacks>
-          {projectData.stack.slice(0, 4).map((el, idx) => (
+          {data.stack.slice(0, 4).map((el, idx) => (
             <div key={idx}>{el}</div>
           ))}
-          + {projectData.stack.length - 4}
+          + {data.stack.length - 4}
         </Stacks>
       </CardImg>
     </CardContainer>
@@ -45,7 +37,7 @@ const CardImg = styled.div`
   padding: 35.37px 32px;
 `;
 
-const ProjectHeader = styled.div`
+const ProjectHeader = styled.div<{ like: boolean }>`
   font-size: ${(props) => props.theme.fontSize.text_5xl};
   display: flex;
   justify-content: space-between;

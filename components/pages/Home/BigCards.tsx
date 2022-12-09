@@ -9,6 +9,7 @@ export interface BigCardProps {
   tag: string[];
   stack: string[];
   period: string;
+  like: boolean;
   id: number;
 }
 
@@ -20,6 +21,7 @@ const projectData = [
     tag: ["덕질", "어덕행덕", "OTT", "개발자"],
     stack: ["a", "f", "k", "i", "r", "t"],
     period: "11.2~12.3",
+    like: false,
     id: 0,
   },
   {
@@ -29,6 +31,7 @@ const projectData = [
     tag: ["덕질", "어덕행덕", "OTT", "개발자"],
     stack: ["a", "f", "k", "i", "r", "t"],
     period: "11.2~12.3",
+    like: true,
     id: 1,
   },
   // {

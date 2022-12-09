@@ -11,19 +11,19 @@ const BigCard = (data: BigCardProps) => {
   return (
     <CardContainer>
       <Card
-        onMouseEnter={() => setIsHover(false)}
-        onMouseLeave={() => setIsHover(true)}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
       >
         {isHover ? (
-          <Image src={BigStudyCardDevImg} alt="BigStudyCardDevImg" />
+          <BigCardHover {...data} />
         ) : (
-          <BigCardHover />
+          <Image src={BigStudyCardDevImg} alt="BigStudyCardDevImg" />
         )}
       </Card>
       <ProjectTitle>{data.title}</ProjectTitle>
       <Tags>
         <Tag>
-          {data.tag.map((el: string, idx: number) => (
+          {data.tag.map((el, idx) => (
             <div key={idx}>#{el}</div>
           ))}
         </Tag>

@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
-import LikeImg from "../../../public/Cards/BigCards/Like.svg";
 import { BigCardProps } from "./BigCards";
+import LikeButton from "./LikeButton";
 
 const BigCardHover = (data: BigCardProps) => {
   return (
     <CardContainer>
       <CardImg>
-        <ProjectHeader like={data.like}>
+        <ProjectHeader>
           <span>{data.name}</span>
-          <Image src={LikeImg} alt="Like" />
+          <LikeButton like={data.like} />
         </ProjectHeader>
         <ProjectMemeber>{data.memeber}</ProjectMemeber>
         <Stacks>
@@ -37,7 +37,7 @@ const CardImg = styled.div`
   padding: 35.37px 32px;
 `;
 
-const ProjectHeader = styled.div<{ like: boolean }>`
+const ProjectHeader = styled.div`
   font-size: ${(props) => props.theme.fontSize.text_5xl};
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BigCard from "./BigCard";
+import CardsHeader from "./CardsHeader";
 
 export interface BigCardProps {
   name: string;
@@ -48,10 +49,7 @@ const projectData = [
 const BigCards = ({ title }: { title: string }) => {
   return (
     <LandingCardsContainer>
-      <CardsHeader>
-        <CardsTitle>{title}</CardsTitle>
-        <div>{"전체보기 >"}</div>
-      </CardsHeader>
+      <CardsHeader title={title} />
       <CardsContents>
         {projectData.map((data) => (
           <BigCard key={data.id} {...data} />
@@ -68,27 +66,6 @@ const LandingCardsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const CardsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 45.78px;
-  width: 100%;
-  div {
-    color: #999999;
-    font-size: ${(props) => props.theme.fontSize.text_xl};
-  }
-
-  div:hover {
-    cursor: pointer;
-  }
-`;
-
-const CardsTitle = styled.h3`
-  font-size: ${(props) => props.theme.fontSize.text_5xl};
-  font-weight: 600;
 `;
 
 const CardsContents = styled.div`

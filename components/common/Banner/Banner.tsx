@@ -25,4 +25,11 @@ const BannerContainer = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+
+  button {
+    bottom: 102.99px;
+    height: 50px;
+    padding: 13px 24px;
+    font-weight: 600;
+  }
 `;

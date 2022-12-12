@@ -46,6 +46,7 @@ const HeaderContainer = styled.div<{ isScrolled: boolean }>`
   background-color: ${(props) =>
     props.isScrolled ? `${props.theme.colors.Cosmic_black}` : "transparent"};
   z-index: 10;
+  transition: all 0.3s;
 
   img {
     cursor: pointer;
@@ -69,6 +70,7 @@ const MenuTabs = styled.div`
   .selected {
     color: #ffffff;
     font-weight: bold;
+    border-bottom: 3px solid #ffffff;
   }
 `;
 

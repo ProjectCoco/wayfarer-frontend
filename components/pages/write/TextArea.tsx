@@ -12,9 +12,7 @@ const TextAreaPlaceHolder = `프로젝트에 대한 설명들을 자세히 담�
 `;
 
 function TextArea() {
-  return (
-    <StyledTextArea placeholder={TextAreaPlaceHolder}>TextArea</StyledTextArea>
-  );
+  return <StyledTextArea placeholder={TextAreaPlaceHolder} />;
 }
 
 export default TextArea;

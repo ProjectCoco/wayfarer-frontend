@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-const items = ["프론트엔드", "백엔드", "디자인", "기획자", "기타"];
+import DropDownIcon from "./DropDownIcon";
 
 interface Props {
-  icon: React.ReactNode;
   width: string;
+  menuItems: string[];
+  defaultValue?: string;
 }
 
-function DropDown({ icon, ...props }: Props) {
+function DropDown({ menuItems, defaultValue, ...props }: Props) {
   const [isDrop, setIsDrop] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -28,12 +28,12 @@ function DropDown({ icon, ...props }: Props) {
   return (
     <DropDownBlock ref={ref}>
       <Block onClick={() => setIsDrop((pre) => !pre)} {...props}>
-        <span>디자이너</span>
-        {icon}
+        <DefaultValue>{defaultValue}</DefaultValue>
+        <DropDownIcon />
       </Block>
       {isDrop && (
         <DropDownBox>
-          {items.map((item) => (
+          {menuItems.map((item) => (
             <DropDownItem key={item}>{item}</DropDownItem>
           ))}
         </DropDownBox>
@@ -81,10 +81,15 @@ const DropDownBox = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   top: 39px;
-  left: 0;
+  left: -20px;
   width: 120px;
+  height: 200px;
   padding: 20px;
   z-index: 2;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 const DropDownItem = styled.div`
@@ -101,4 +106,16 @@ const DropDownItem = styled.div`
   &:hover {
     opacity: 1;
   }
+`;
+
+const Value = styled.span`
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  color: #222222;
+`;
+
+const DefaultValue = styled(Value)`
+  opacity: 0.3;
 `;

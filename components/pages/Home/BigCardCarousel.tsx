@@ -16,7 +16,7 @@ const BigCardCarousel = ({ projectData }: { projectData: BigCardProps[] }) => {
 
   const settings = {
     infinite: false,
-    dots: true,
+    dots: false,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,

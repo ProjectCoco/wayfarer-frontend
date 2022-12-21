@@ -8,7 +8,7 @@ import PrevArrowButton from "./PrevArrowButton";
 import NextArrowButton from "./NextArrowButton";
 import { BigCardProps } from "./BigCards";
 
-const BigCardCarousel = ({ projectData }: { projectData: BigCardProps[] }) => {
+const BigCardCarousel = ({ data }: { data: BigCardProps[] }) => {
   const slideRef = useRef<Slider>(null);
 
   const handlePrevButtonClick = () => slideRef.current?.slickPrev();
@@ -26,7 +26,7 @@ const BigCardCarousel = ({ projectData }: { projectData: BigCardProps[] }) => {
 
   return (
     <BigCardCarouselContainer ref={slideRef} {...settings}>
-      {projectData.map((data) => (
+      {data.map((data) => (
         <BigCard key={data.id} {...data} />
       ))}
     </BigCardCarouselContainer>

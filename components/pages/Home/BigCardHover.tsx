@@ -12,12 +12,14 @@ const BigCardHover = (data: BigCardProps) => {
           <span>{data.name}</span>
           <LikeButton like={data.like} />
         </ProjectHeader>
-        <ProjectMemeber>{data.memeber}</ProjectMemeber>
+        <ProjectMemeber>{data.memeber.join(" / ")}</ProjectMemeber>
         <Stacks>
           {data.stack.slice(0, 4).map((el, idx) => (
             <div key={idx}>{el}</div>
           ))}
-          + {data.stack.length - 4}
+          <span>
+            {data.stack.length > 4 ? ` + ${data.stack.length - 4}` : ""}
+          </span>
         </Stacks>
       </CardImg>
     </CardContainer>
@@ -39,6 +41,7 @@ const CardImg = styled.div`
 
 const ProjectHeader = styled.div`
   font-size: ${(props) => props.theme.fontSize.text_5xl};
+  color: ${(props) => props.theme.colors.gray100};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,5 +72,3 @@ const Stacks = styled.div`
     margin-right: 20px;
   }
 `;
-
-const Stack = styled.div``;

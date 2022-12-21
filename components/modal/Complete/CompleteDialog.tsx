@@ -23,7 +23,7 @@ function CompleteDialog({ nickname }: Props) {
       <ImageBlock>
         <Image src={GlossyIcon} alt="GlossyIcon" />
       </ImageBlock>
-      <ModalButton title="시작하기" isAllFill={true} onClick={close} />
+      <ModalButton title="시작하기" disabled={true} onClick={close} />
     </Block>
   );
 }

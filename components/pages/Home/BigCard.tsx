@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import BigStudyCardDevImg from "../../../public/Cards/BigCards/BigStudyCardDev.svg";
 import BigCardHover from "./BigCardHover";
 import { BigCardProps } from "./BigCards";
+import { BigCardsImg, BigCardsImgType } from "../../../public/Cards/BigCards";
 
 const BigCard = (data: BigCardProps) => {
   const [isHover, setIsHover] = useState(false);
+
+  const selectCardImg = (type: string, occupation: string) => {
+    return Object.keys(BigCardsImg).filter(
+      (cardName) => cardName.includes(type) && cardName.includes(occupation)
+    )[0];
+  };
 
   return (
     <CardContainer>
@@ -17,7 +23,14 @@ const BigCard = (data: BigCardProps) => {
         {isHover ? (
           <BigCardHover {...data} />
         ) : (
-          <Image src={BigStudyCardDevImg} alt="BigStudyCardDevImg" />
+          <Image
+            src={
+              BigCardsImg[
+                selectCardImg(data.type, data.occupation) as BigCardsImgType
+              ]
+            }
+            alt={`${data.occupation}Card`}
+          />
         )}
       </Card>
       <ProjectTitle>{data.title}</ProjectTitle>
@@ -44,11 +57,7 @@ const Card = styled.div`
   display: block;
   width: 100%;
   line-height: 0;
-  height: 299.52px;
-
-  img {
-    height: 300px;
-  }
+  height: 300px;
 `;
 
 const ProjectTitle = styled.div`

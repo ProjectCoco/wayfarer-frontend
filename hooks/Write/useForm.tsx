@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { TextareaHTMLAttributes, useState } from "react";
 
 interface WriteForm {
   title: string;
   summary: string[];
   recruit: string;
   tech: string[];
-  start: string;
+  start: [string, string, string];
   content: string;
 }
 
@@ -15,11 +15,15 @@ function useForm() {
     summary: [],
     recruit: "",
     tech: [],
-    start: "",
+    start: ["", "", ""],
     content: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setForm({
       ...form,
@@ -52,6 +56,27 @@ function useForm() {
     });
   };
 
+  const handleDateChange = (date: string, type: string) => {
+    if (type === "year") {
+      setForm({
+        ...form,
+        start: [date, form.start[1], form.start[2]],
+      });
+    }
+    if (type === "month") {
+      setForm({
+        ...form,
+        start: [form.start[0], date, form.start[2]],
+      });
+    }
+    if (type === "day") {
+      setForm({
+        ...form,
+        start: [form.start[0], form.start[1], date],
+      });
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(form);
@@ -62,6 +87,7 @@ function useForm() {
     handleChange,
     handleAddTag,
     handleRemoveTag,
+    handleDateChange,
     handleSubmit,
   };
 }

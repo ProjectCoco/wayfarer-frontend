@@ -20,8 +20,14 @@ import useForm from "../../../hooks/Write/useForm";
 import SubmitButton from "./SubmitButton";
 
 function WriteForm() {
-  const { form, handleChange, handleAddTag, handleRemoveTag, handleSubmit } =
-    useForm();
+  const {
+    form,
+    handleChange,
+    handleAddTag,
+    handleRemoveTag,
+    handleDateChange,
+    handleSubmit,
+  } = useForm();
   return (
     <Form onSubmit={handleSubmit}>
       <LabelBlock
@@ -87,16 +93,22 @@ function WriteForm() {
                 width="64px"
                 menuItems={getYear()}
                 defaultValue={"YYYY년"}
+                value={form.start[0]}
+                handleDateChange={handleDateChange}
               />,
               <DropDown
                 width="56px"
                 menuItems={getMonth}
                 defaultValue={"MM월"}
+                value={form.start[1]}
+                handleDateChange={handleDateChange}
               />,
               <DropDown
                 width="51px"
                 menuItems={getDay}
                 defaultValue={"DD일"}
+                value={form.start[2]}
+                handleDateChange={handleDateChange}
               />,
             ]}
           />
@@ -104,7 +116,13 @@ function WriteForm() {
       />
       <LabelBlock
         label={<Label label="소개" icon={<Asterisk />} />}
-        customInput={<TextArea />}
+        customInput={
+          <TextArea
+            onChange={handleChange}
+            value={form.content}
+            name={"content"}
+          />
+        }
       />
       <SubmitButton />
     </Form>

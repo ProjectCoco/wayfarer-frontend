@@ -3,26 +3,8 @@ import styled from "styled-components";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {}
 
-function WriteInput({
-  name,
-  type,
-  placeholder,
-  value,
-  onChange,
-  onClick,
-  onKeyUp,
-}: Props) {
-  return (
-    <StyledInput
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      onClick={onClick}
-      onKeyUp={onKeyUp}
-    />
-  );
+function WriteInput({ ...props }: Props) {
+  return <StyledInput {...props} />;
 }
 
 export default WriteInput;

@@ -1,30 +1,35 @@
 import React, { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
-import useHandleTag from "../../../hooks/Write/useHandleTag";
 import WriteInput from "./WriteInput";
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  tags: string[];
+  type: "summary" | "tech";
+  handleAddTag: (
+    e: KeyboardEvent<HTMLInputElement>,
+    type: "summary" | "tech"
+  ) => void;
+  handleRemoveTag: (tag: string, type: "summary" | "tech") => void;
+}
 
 function TagInput({
-  name,
+  tags,
   type,
-  placeholder,
-  value,
-  onChange,
-  onClick,
+  handleRemoveTag,
+  handleAddTag,
+  ...props
 }: Props) {
-  const { tags, handleAddTag, handleRemoveTag } = useHandleTag();
   return (
     <Block>
       <TagBox>
         {tags.map((tag) => (
-          <Tag key={tag} onClick={() => handleRemoveTag(tag)}>
+          <Tag key={tag} onClick={() => handleRemoveTag(tag, type)}>
             #{tag}
           </Tag>
         ))}
       </TagBox>
       {tags.length < 5 && (
-        <WriteInput placeholder={placeholder} onKeyUp={handleAddTag} />
+        <WriteInput {...props} onKeyUp={(e) => handleAddTag(e, type)} />
       )}
     </Block>
   );

@@ -36,7 +36,7 @@ const ToggleButton = styled.div<{ isActive: boolean }>`
   padding: 2.5px 3px;
   width: 50px;
   height: 25px;
-  background-color: #9da1ae;
+  background-color: ${(props) => props.theme.colors.gray300};
   margin-left: 30px;
   border-radius: 30px;
   cursor: pointer;

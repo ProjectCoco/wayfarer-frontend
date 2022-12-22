@@ -1,11 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import useHeaderScroll from "../../../hooks/Header/useHeaderScroll";
 import useMenuSelect from "../../../hooks/Header/useMenuSelect";
 import LogoImg from "../../../public/Logo/Logo.svg";
 
-const Menus = ["홈", "스터디", "사이드프로젝트", "Q&A"];
+const HeaderMenus = [
+  { name: "홈", route: "/" },
+  { name: "스터디", route: "/study" },
+  { name: "사이드프로젝트", route: "/project" },
+  { name: "커뮤니티", route: "/community" },
+];
 
 const Header = () => {
   const { isScrolled } = useHeaderScroll();
@@ -16,14 +22,15 @@ const Header = () => {
       <Image src={LogoImg} alt="WayfarerLogo" />
       <Tabs>
         <MenuTabs>
-          {Menus.map((el) => (
-            <span
-              className={`${el === selected ? "selected" : ""}`}
-              key={el}
-              onClick={() => onTabClick(el)}
-            >
-              {el}
-            </span>
+          {HeaderMenus.map((el) => (
+            <Link href={el.route} key={el.name}>
+              <span
+                className={`${el.name === selected ? "selected" : ""}`}
+                onClick={() => onTabClick(el.name)}
+              >
+                {el.name}
+              </span>
+            </Link>
           ))}
         </MenuTabs>
         <Login>로그인</Login>

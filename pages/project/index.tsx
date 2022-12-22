@@ -1,31 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { FilterMenuType } from "../../utils/Filter";
 import Banner from "../../components/common/Banner/Banner";
 import SmallCards from "../../components/common/Cards/SmallCards";
 import OccupationFilter from "../../components/common/OccupationFilter/OccupationFilter";
+import TechStackFilter from "../../components/pages/Project/TechStackFilter";
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
-import { FilterMenuType } from "../../utils/Filter";
 
-const Study = () => {
+const Project = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterMenuType>("전체");
+
   return (
-    <StudyContainer>
+    <ProjectContainer>
       <Banner text={"모집글 작성하기"} />
       <InnerContainer>
         <OccupationFilter
           selected={selectedFilter}
           setSelectedFilter={setSelectedFilter}
         />
+        <TechStackFilter occupation={selectedFilter} />
         <RecruitToggle />
         <SmallCards />
       </InnerContainer>
-    </StudyContainer>
+    </ProjectContainer>
   );
 };
 
-export default Study;
+export default Project;
 
-const StudyContainer = styled.div`
+const ProjectContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

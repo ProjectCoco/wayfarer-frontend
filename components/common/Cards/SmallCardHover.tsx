@@ -1,16 +1,15 @@
-import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
-import { BigCardProps } from "./BigCards";
-import LikeButton from "./LikeButton";
+import { BigCardProps } from "../../pages/Home/BigCards";
+import SmallLikeButton from "./SmallLikeButton";
 
-const BigCardHover = (data: BigCardProps) => {
+const SmallCardHover = (data: BigCardProps) => {
   return (
     <CardContainer>
       <CardImg>
         <ProjectHeader>
           <span>{data.name}</span>
-          <LikeButton like={data.like} />
+          <SmallLikeButton like={data.like} />
         </ProjectHeader>
         <ProjectMemeber>{data.memeber.join(" / ")}</ProjectMemeber>
         <Stacks>
@@ -26,32 +25,36 @@ const BigCardHover = (data: BigCardProps) => {
   );
 };
 
-export default BigCardHover;
+export default SmallCardHover;
 
 const CardContainer = styled.div``;
 
 const CardImg = styled.div`
-  width: 633px;
-  height: 300px;
+  width: 416.99px;
+  height: 199.5px;
   color: #ffffff;
   background-color: ${(props) => props.theme.colors.Cosmic_black};
   border-radius: 10px;
-  padding: 35.37px 32px;
+  padding: 30px 33px;
+  font-size: 25px;
+
+  img {
+    object-fit: cover;
+  }
 `;
 
 const ProjectHeader = styled.div`
-  font-size: ${(props) => props.theme.fontSize.text_5xl};
   color: ${(props) => props.theme.colors.gray100};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 `;
 
 const ProjectMemeber = styled.div`
   color: ${(props) => props.theme.colors.gray300};
-  font-size: 25px;
-  margin-bottom: 90px;
+  font-size: 17px;
+  margin-bottom: 50px;
 `;
 
 const Stacks = styled.div`
@@ -63,12 +66,13 @@ const Stacks = styled.div`
   div {
     background-color: ${(props) => props.theme.colors.Main_blue};
     color: #ffffff;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 20px;
+    font-size: 17px;
   }
 `;

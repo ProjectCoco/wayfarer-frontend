@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import SmallProjCardDev from "../../../public/Cards/SmallCards/SmProjCardDev.svg";
 import { BigCardProps } from "../../pages/Home/BigCards";
+import {
+  SmallCardsImg,
+  SmallCardsImgType,
+} from "../../../public/Cards/SmallCards";
+import SmallCardHover from "./SmallCardHover";
 
 const SmallCard = (data: BigCardProps) => {
+  const [isHover, setIsHover] = useState(false);
+
+  const selectCardImg = (type: string, occupation: string) => {
+    return Object.keys(SmallCardsImg).filter(
+      (cardName) =>
+        cardName.includes(type) && cardName.includes("_" + occupation)
+    )[0];
+  };
+
   return (
     <CardContainer>
-      <Card>
-        <Image src={SmallProjCardDev} alt="SmallProjCardDev" />
+      <Card
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        {isHover ? (
+          <SmallCardHover {...data} />
+        ) : (
+          <Image
+            src={
+              SmallCardsImg[
+                selectCardImg(data.type, data.occupation) as SmallCardsImgType
+              ]
+            }
+            alt={`${data.occupation}Card`}
+          />
+        )}
       </Card>
       <Text>
         <ProjectTitle>{data.title}</ProjectTitle>
@@ -40,10 +67,6 @@ const Card = styled.div`
   width: 100%;
   line-height: 0;
   height: 200px;
-
-  img {
-    height: 200px;
-  }
 `;
 
 const Text = styled.div`

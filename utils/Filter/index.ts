@@ -1,4 +1,4 @@
-export const TabMenus = [
+export const FilterMenus = [
   "전체",
   "프론트엔드",
   "백엔드",
@@ -62,8 +62,8 @@ export const TabTechStacks = {
   },
 };
 
-export type TabMenuType = keyof typeof TabTechStacks;
+export type FilterMenuType = keyof typeof TabTechStacks;
 
-export type TechStacks = typeof TabTechStacks[TabMenuType];
+export type TechStacks = typeof TabTechStacks[FilterMenuType];
 
 export type TechStacksKeys = keyof TechStacks;

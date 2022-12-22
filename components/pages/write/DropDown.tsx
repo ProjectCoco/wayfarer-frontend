@@ -1,40 +1,47 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import useDropDown from "../../../hooks/Write/useDropDown";
 import DropDownIcon from "./DropDownIcon";
 
 interface Props {
   width: string;
   menuItems: string[];
   defaultValue?: string;
+  value?: string;
+  handleDateChange?: (date: string, type: string) => void;
 }
 
-function DropDown({ menuItems, defaultValue, ...props }: Props) {
-  const [isDrop, setIsDrop] = useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (e: MouseEvent) => {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
-      setIsDrop(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+function DropDown({
+  menuItems,
+  defaultValue,
+  value,
+  handleDateChange,
+  ...props
+}: Props) {
+  const { isDrop, ref, handleChangeDrop } = useDropDown();
 
   return (
     <DropDownBlock ref={ref}>
-      <Block onClick={() => setIsDrop((pre) => !pre)} {...props}>
-        <DefaultValue>{defaultValue}</DefaultValue>
+      <Block onClick={() => handleChangeDrop()} {...props}>
+        <DefaultValue>{value ? value : defaultValue}</DefaultValue>
         <DropDownIcon />
       </Block>
       {isDrop && (
         <DropDownBox>
           {menuItems.map((item) => (
-            <DropDownItem key={item}>{item}</DropDownItem>
+            <DropDownItem
+              key={item}
+              onClick={() => {
+                if (handleDateChange) {
+                  if (defaultValue === "YYYY년") handleDateChange(item, "year");
+                  if (defaultValue === "MM월") handleDateChange(item, "month");
+                  if (defaultValue === "DD일") handleDateChange(item, "day");
+                }
+                handleChangeDrop(false);
+              }}
+            >
+              {item}
+            </DropDownItem>
           ))}
         </DropDownBox>
       )}

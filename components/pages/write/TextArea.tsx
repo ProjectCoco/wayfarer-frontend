@@ -11,8 +11,10 @@ const TextAreaPlaceHolder = `프로젝트에 대한 설명들을 자세히 담�
   ✔ 프로젝트 동기 등
 `;
 
-function TextArea() {
-  return <StyledTextArea placeholder={TextAreaPlaceHolder} />;
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+function TextArea({ ...props }: Props) {
+  return <StyledTextArea placeholder={TextAreaPlaceHolder} {...props} />;
 }
 
 export default TextArea;

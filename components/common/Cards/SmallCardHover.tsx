@@ -30,7 +30,7 @@ export default SmallCardHover;
 const CardContainer = styled.div``;
 
 const CardImg = styled.div`
-  width: 416.99px;
+  width: 417px;
   height: 199.5px;
   color: #ffffff;
   background-color: ${(props) => props.theme.colors.Cosmic_black};

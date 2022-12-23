@@ -7,32 +7,22 @@ import "slick-carousel/slick/slick-theme.css";
 import PrevArrowButton from "../Home/PrevArrowButton";
 import NextArrowButton from "../Home/NextArrowButton";
 import FilterTag from "../../common/FilterTag/FilterTag";
+import useSlide from "../../../hooks/Carousel/useSlide";
+import useTagClick from "../../../hooks/FilterTag/useTagClick";
 
 const TechStackFilter = ({ occupation }: { occupation: FilterMenuType }) => {
-  const [techStackList, setTechStackList] = useState<any>(
+  const { tagList, setTagList, handleTagClick } = useTagClick(
     TabTechStacks[occupation]
   );
-  const slideRef = useRef<Slider>(null);
-
-  const handlePrevButtonClick = () => slideRef.current?.slickPrev();
-  const handleNextButtonClick = () => slideRef.current?.slickNext();
-
-  const handleTechStackClick = (stackName: string) => {
-    setTechStackList((prev: any) => {
-      return {
-        ...prev,
-        [stackName]: !prev[stackName],
-      };
-    });
-  };
+  const { slideRef, handlePrevButtonClick, handleNextButtonClick } = useSlide();
 
   useEffect(() => {
-    setTechStackList(TabTechStacks[occupation]);
+    setTagList(TabTechStacks[occupation]);
   }, [occupation]);
 
   const settings = {
-    slidesToShow: 1,
     slidesToScroll: 1,
+    infinite: false,
     variableWidth: true,
     prevArrow: <PrevArrowButton onClick={handlePrevButtonClick} />,
     nextArrow: <NextArrowButton onClick={handleNextButtonClick} />,
@@ -41,15 +31,16 @@ const TechStackFilter = ({ occupation }: { occupation: FilterMenuType }) => {
   return (
     <TechStackFilterContainer>
       <TagsContainer ref={slideRef} {...settings}>
-        {Object.keys(techStackList).map((stack) => (
+        {Object.keys(tagList).map((stack) => (
           <FilterTag
             text={stack}
             key={stack}
-            className={techStackList[stack] ? "selected" : ""}
-            onClick={() => handleTechStackClick(stack)}
+            className={tagList[stack] ? "selected" : ""}
+            onClick={() => handleTagClick(stack)}
           />
         ))}
       </TagsContainer>
+      <RightGradientBox />
     </TechStackFilterContainer>
   );
 };
@@ -59,7 +50,7 @@ export default TechStackFilter;
 const TechStackFilterContainer = styled.div`
   width: 1280px;
   display: flex;
-  justify-content: center;
+  position: relative;
   gap: 15px;
   margin-top: 45px;
   margin-bottom: 68px;
@@ -71,7 +62,9 @@ const TechStackFilterContainer = styled.div`
 `;
 
 const TagsContainer = styled(Slider)`
-  width: 1117px;
+  width: 1166px;
+  position: absolute;
+  left: 66.99px;
 
   .slick-track {
     display: flex;
@@ -88,6 +81,15 @@ const TagsContainer = styled(Slider)`
   }
 
   > .next {
-    right: -49px;
+    right: 0px;
+    z-index: 1;
   }
+`;
+
+const RightGradientBox = styled.div`
+  position: absolute;
+  right: 48px;
+  width: 59px;
+  height: 42px;
+  background-image: linear-gradient(to right, transparent 0%, white 20%);
 `;

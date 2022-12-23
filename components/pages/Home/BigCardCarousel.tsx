@@ -7,12 +7,10 @@ import styled from "styled-components";
 import PrevArrowButton from "./PrevArrowButton";
 import NextArrowButton from "./NextArrowButton";
 import { BigCardProps } from "./BigCards";
+import useSlide from "../../../hooks/Carousel/useSlide";
 
 const BigCardCarousel = ({ data }: { data: BigCardProps[] }) => {
-  const slideRef = useRef<Slider>(null);
-
-  const handlePrevButtonClick = () => slideRef.current?.slickPrev();
-  const handleNextButtonClick = () => slideRef.current?.slickNext();
+  const { slideRef, handlePrevButtonClick, handleNextButtonClick } = useSlide();
 
   const settings = {
     infinite: false,

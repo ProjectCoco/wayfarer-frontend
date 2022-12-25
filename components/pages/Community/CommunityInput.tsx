@@ -2,16 +2,25 @@ import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import PencilImg from "../../../public/Community/Pencil.svg";
+import EnterImg from "../../../public/Community/Enter.svg";
 
-const CommunityInput = () => {
+interface CommentInputProps {
+  mode?: "comment";
+}
+
+const CommunityInput = ({ mode }: CommentInputProps) => {
   return (
-    <CommunityInputContainer>
+    <CommunityInputContainer mode={mode}>
       <InputContainer>
         <ProfileImg />
         <CommunityInputForm>
           <input placeholder={"혜민님, 어떤 이야기를 나누고 싶으세요?"} />
           <button>
-            <Image src={PencilImg} alt="입력" />
+            {mode ? (
+              <Image src={EnterImg} alt="입력" />
+            ) : (
+              <Image src={PencilImg} alt="입력" />
+            )}
           </button>
         </CommunityInputForm>
       </InputContainer>
@@ -21,11 +30,14 @@ const CommunityInput = () => {
 
 export default CommunityInput;
 
-const CommunityInputContainer = styled.div`
+const CommunityInputContainer = styled.div<{ mode?: string }>`
   width: 100%;
-  padding: 50px 0;
-  border-top: 1px solid ${(props) => props.theme.colors.gray300};
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  padding: ${(props) => (props.mode ? "0" : "50px 0")};
+  border-top: ${(props) =>
+    props.mode ? "none" : `1px solid ${props.theme.colors.gray300}`};
+  border-bottom: ${(props) =>
+    props.mode ? "none" : `1px solid ${props.theme.colors.gray300}`};
+  margin-top: ${(props) => (props.mode ? "86px" : "0")};
 `;
 
 const InputContainer = styled.div`

@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { HeaderMenus } from "../../components/common/Header/Header";
 
-const useMenuSelect = () => {
+const useMenuSelect = (pathname: string) => {
   const [selected, setSelected] = useState("홈");
 
   const onTabClick = (tabName: string) => {
     setSelected(tabName);
   };
 
-  return { selected, onTabClick };
+  useEffect(() => {
+    if (pathname) {
+      setSelected(
+        HeaderMenus.filter((menu) => menu.route === pathname)[0].name
+      );
+    }
+  }, []);
+
+  return { selected, setSelected, onTabClick };
 };
 
 export default useMenuSelect;

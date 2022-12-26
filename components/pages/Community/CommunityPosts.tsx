@@ -50,7 +50,11 @@ const communityPostData = [
   },
 ];
 
-const CommunityPosts = () => {
+export interface CommunityPosts {
+  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CommunityPosts = ({ setIsModalOpened }: CommunityPosts) => {
   return (
     <CommunityPostsContainer>
       <HeaderConatiner>
@@ -58,7 +62,11 @@ const CommunityPosts = () => {
         <PostSortFilter />
       </HeaderConatiner>
       {communityPostData.map((data) => (
-        <CommuntiyPost key={data.id} data={data} />
+        <CommuntiyPost
+          key={data.id}
+          data={data}
+          setIsModalOpened={setIsModalOpened}
+        />
       ))}
     </CommunityPostsContainer>
   );

@@ -2,10 +2,11 @@ import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import AuthorOccupationTag from "./AuthorOccupationTag";
-import ThumbsUp from "../../../public/Community/ThumbsUp.svg";
-import MessageCircle from "../../../public/Community/MessageCircle.svg";
+import { CommunityPosts } from "./CommunityPosts";
+import MessageCircle from "./MessageCircle";
+import ThumbsUp from "./ThumbsUp";
 
-interface CommunityPost {
+interface CommunityPostData {
   nickName: string;
   occupation: string;
   title: string;
@@ -16,29 +17,40 @@ interface CommunityPost {
   id: number;
 }
 
-const CommuntiyPost = ({ data }: { data: CommunityPost }) => {
+interface CommunityPostProps extends CommunityPosts {
+  data: CommunityPostData;
+}
+
+const CommuntiyPost = ({ data, setIsModalOpened }: CommunityPostProps) => {
+  const handlePostClick = () => {
+    setIsModalOpened(true);
+    document.body.style.overflow = "hidden";
+  };
+
   return (
-    <PostContainer>
-      <CreateInfo>
-        <ProfileImg />
-        <span className="author">{data.nickName}</span>
-        <AuthorOccupationTag occupation={data.occupation} />
-        <span className="created-at"></span>
-      </CreateInfo>
-      <Content>
-        <h3>{data.title}</h3>
-        <div>{data.content}</div>
-      </Content>
-      <SubInfo>
-        <div className="sub-info">
-          <Image src={ThumbsUp} alt="like" />
-          {data.like}
-        </div>
-        <div className="sub-info">
-          <Image src={MessageCircle} alt="comment" />
-          {data.comment.length}
-        </div>
-      </SubInfo>
+    <PostContainer onClick={handlePostClick}>
+      <div>
+        <CreateInfo>
+          <ProfileImg />
+          <span className="author">{data.nickName}</span>
+          <AuthorOccupationTag occupation={data.occupation} />
+          <span className="created-at">{data.createdAt}</span>
+        </CreateInfo>
+        <Content>
+          <h3>{data.title}</h3>
+          <div>{data.content}</div>
+        </Content>
+        <SubInfo>
+          <div className="sub-info">
+            <ThumbsUp color={"#8F92A3"} />
+            {data.like}
+          </div>
+          <div className="sub-info">
+            <MessageCircle color={"#8F92A3"} />
+            {data.comment.length}
+          </div>
+        </SubInfo>
+      </div>
     </PostContainer>
   );
 };
@@ -48,7 +60,11 @@ export default CommuntiyPost;
 const PostContainer = styled.div`
   padding-top: 30px;
   padding-bottom: 45px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300}; ;
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+
+  > div {
+    cursor: pointer;
+  }
 `;
 
 const ProfileImg = styled.div`

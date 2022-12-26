@@ -9,6 +9,9 @@ const AuthorOccupationTag = ({ occupation }: { occupation: string }) => {
 export default AuthorOccupationTag;
 
 const OccupationTag = styled.div<{ occupation: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 4px 9px;
   height: 26px;
   background-color: ${(props) => props.theme.colors.gray100};

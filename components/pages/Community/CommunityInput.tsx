@@ -6,15 +6,16 @@ import EnterImg from "../../../public/Community/Enter.svg";
 
 interface CommentInputProps {
   mode?: "comment";
+  placeholder: string;
 }
 
-const CommunityInput = ({ mode }: CommentInputProps) => {
+const CommunityInput = ({ mode, placeholder }: CommentInputProps) => {
   return (
     <CommunityInputContainer mode={mode}>
       <InputContainer>
         <ProfileImg />
         <CommunityInputForm>
-          <input placeholder={"혜민님, 어떤 이야기를 나누고 싶으세요?"} />
+          <input placeholder={placeholder} />
           <button>
             {mode ? (
               <Image src={EnterImg} alt="입력" />

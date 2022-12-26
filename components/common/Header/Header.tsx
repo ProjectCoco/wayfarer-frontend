@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import useHeaderScroll from "../../../hooks/Header/useHeaderScroll";
 import useMenuSelect from "../../../hooks/Header/useMenuSelect";
 import LogoImg from "../../../public/Logo/Logo.svg";
 
-const HeaderMenus = [
+export const HeaderMenus = [
   { name: "홈", route: "/" },
   { name: "스터디", route: "/study" },
   { name: "사이드프로젝트", route: "/project" },
@@ -14,12 +15,20 @@ const HeaderMenus = [
 ];
 
 const Header = () => {
+  const router = useRouter();
   const { isScrolled } = useHeaderScroll();
-  const { selected, onTabClick } = useMenuSelect();
+  const { selected, setSelected, onTabClick } = useMenuSelect(router.pathname);
 
   return (
     <HeaderContainer isScrolled={isScrolled}>
-      <Image src={LogoImg} alt="WayfarerLogo" />
+      <Image
+        src={LogoImg}
+        alt="WayfarerLogo"
+        onClick={() => {
+          setSelected("홈");
+          router.push("/");
+        }}
+      />
       <Tabs>
         <MenuTabs>
           {HeaderMenus.map((el) => (

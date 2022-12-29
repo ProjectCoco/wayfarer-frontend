@@ -118,7 +118,7 @@ const PostDetailModalWrapper = styled.div`
   align-items: flex-start;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 20;
-  padding: 100px 0;
+  padding: 150px 0;
   overflow-y: auto;
 `;
 

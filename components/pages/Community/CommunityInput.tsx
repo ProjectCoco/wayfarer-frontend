@@ -7,15 +7,27 @@ import EnterImg from "../../../public/Community/Enter.svg";
 interface CommentInputProps {
   mode?: "comment";
   placeholder: string;
+  setIsWriteModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CommunityInput = ({ mode, placeholder }: CommentInputProps) => {
+const CommunityInput = ({
+  mode,
+  placeholder,
+  setIsWriteModalOpened,
+}: CommentInputProps) => {
+  const handleFormClick = () => {
+    if (setIsWriteModalOpened) {
+      setIsWriteModalOpened(true);
+      document.body.style.overflow = "hidden";
+    }
+  };
+
   return (
     <CommunityInputContainer mode={mode}>
       <InputContainer>
         <ProfileImg />
-        <CommunityInputForm>
-          <input placeholder={placeholder} />
+        <CommunityInputForm onClick={handleFormClick}>
+          <input placeholder={placeholder} disabled={mode ? false : true} />
           <button>
             {mode ? (
               <Image src={EnterImg} alt="입력" />

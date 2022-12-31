@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AuthorOccupationTag from "../AuthorOccupationTag";
 import ThreeDots from "../../../../public/Community/ThreeDots.svg";
 import Image from "next/image";
-import CommunityCommentModal from "./CommunityCommentModal";
+import CommunityCommentDropDown from "./CommunityCommentDropDown";
 import useDropDown from "../../../../hooks/Write/useDropDown";
 
 interface CommunityPostCommentData {
@@ -23,7 +23,7 @@ const CommunityPostComment = ({ data }: CommunityPostCommentProps) => {
   return (
     <CommentContainer>
       <CreateInfo>
-        {isDrop && <CommunityCommentModal />}
+        {isDrop && <CommunityCommentDropDown />}
         <div className="info">
           <ProfileImg />
           <div className="author">{data.nickName}</div>

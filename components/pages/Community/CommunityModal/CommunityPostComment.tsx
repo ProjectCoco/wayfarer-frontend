@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import AuthorOccupationTag from "../AuthorOccupationTag";
+import ThreeDots from "../../../../public/Community/ThreeDots.svg";
+import Image from "next/image";
+import CommunityCommentDropDown from "./CommunityCommentDropDown";
+import useDropDown from "../../../../hooks/Write/useDropDown";
 
 interface CommunityPostCommentData {
   nickName: string;
@@ -14,13 +18,27 @@ interface CommunityPostCommentProps {
 }
 
 const CommunityPostComment = ({ data }: CommunityPostCommentProps) => {
+  const { isDrop, ref, handleChangeDrop } = useDropDown();
+
   return (
     <CommentContainer>
       <CreateInfo>
-        <ProfileImg />
-        <div className="author">{data.nickName}</div>
-        <AuthorOccupationTag occupation={data.occupation} />
-        <div className="created-at">{data.createdAt}</div>
+        {isDrop && <CommunityCommentDropDown />}
+        <div className="info">
+          <ProfileImg />
+          <div className="author">{data.nickName}</div>
+          <AuthorOccupationTag occupation={data.occupation} />
+          <div className="created-at">{data.createdAt}</div>
+        </div>
+        <div ref={ref}>
+          <Image
+            src={ThreeDots}
+            alt="edit"
+            onClick={() => {
+              handleChangeDrop(!isDrop);
+            }}
+          />
+        </div>
       </CreateInfo>
       <p>{data.content}</p>
     </CommentContainer>
@@ -53,10 +71,17 @@ const ProfileImg = styled.div`
 `;
 
 const CreateInfo = styled.div`
-  display: flex;
-  align-items: center;
+  position: relative;
   width: 100%;
-  gap: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
   .author {
     color: ${(props) => props.theme.colors.Cosmic_black};
@@ -65,5 +90,9 @@ const CreateInfo = styled.div`
 
   .created-at {
     color: ${(props) => props.theme.colors.gray600};
+  }
+
+  img {
+    cursor: pointer;
   }
 `;

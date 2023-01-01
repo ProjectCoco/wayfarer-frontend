@@ -6,14 +6,9 @@ export default function Document() {
     <Html>
       <Head>
         <link
-          href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
           rel="stylesheet"
-          type="text/css"
-        />
-        <link
-          href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css"
-          rel="stylesheet"
-          type="text/css"
+          as="style"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
         />
       </Head>
       <body>

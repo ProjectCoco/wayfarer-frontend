@@ -1,14 +1,8 @@
-import React, { useRef } from "react";
-import styled from "styled-components";
-import ThumbsUp from "../ThumbsUp";
-import MessageCircle from "../MessageCircle";
-import PostLikeButton from "./PostLikeButton";
-import CommunityInput from "../CommunityInput";
-import CommunityPostComment from "./CommunityPostComment";
-import Image from "next/image";
-import CloseImg from "../../../../public/Community/Close.svg";
+import React from "react";
+import CommunityModalFrame from "./CommunityModalFrame";
+import CommunityPostDetail from "./CommunityPostDetail";
 
-const postDetailData = {
+const postDetailData: PostDetailData = {
   title: "Q. 프론트엔드 포트폴리오와 취업준비",
   nickName: "닉네임",
   createdAt: "2022.10.06 화요일 오후 5:00",
@@ -40,171 +34,33 @@ const postDetailData = {
   ],
 };
 
-interface CommunityPostDetailModalProps {
-  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+interface PostComment {
+  nickName: string;
+  occupation: string;
+  createdAt: string;
+  content: string;
+}
+
+export interface PostDetailData {
+  title: string;
+  nickName: string;
+  createdAt: string;
+  like: number;
+  content: string;
+  tags: string[];
+  comments: PostComment[];
 }
 
 const CommunityPostDetailModal = ({
   setIsModalOpened,
-}: CommunityPostDetailModalProps) => {
-  const wrapperRef = useRef(null);
-
-  const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (wrapperRef.current === e.target) {
-      setIsModalOpened(false);
-      document.body.style.overflow = "unset";
-    }
-  };
-
+}: {
+  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
-    <PostDetailModalWrapper ref={wrapperRef} onClick={handleWrapperClick}>
-      <PostDetailModalContainer>
-        <h3>{postDetailData.title}</h3>
-        <button
-          onClick={() => {
-            setIsModalOpened(false);
-            document.body.style.overflow = "unset";
-          }}
-        >
-          <Image src={CloseImg} alt="close" />
-        </button>
-        <CreateInfo>
-          <div className="profile">
-            <ProfileImg />
-            <div>{postDetailData.nickName}</div>
-          </div>
-          <div>{postDetailData.createdAt}</div>
-          <div className="sub-info">
-            <div className="like">
-              <ThumbsUp color={"#73778C"} />
-              {postDetailData.like}
-            </div>
-            <div className="comment">
-              <MessageCircle color={"#73778C"} />
-              {postDetailData.comments.length}
-            </div>
-          </div>
-        </CreateInfo>
-        <Content>
-          <p>{postDetailData.content}</p>
-          <div className="tags">
-            {postDetailData.tags.map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
-          </div>
-        </Content>
-        <PostLikeButton like={postDetailData.like} />
-        <CommunityInput mode="comment" placeholder="댓글을 남겨주세요." />
-        <CommunityPostComments>
-          {postDetailData.comments.map((comment, idx) => (
-            <CommunityPostComment key={idx} data={comment} />
-          ))}
-        </CommunityPostComments>
-      </PostDetailModalContainer>
-    </PostDetailModalWrapper>
+    <CommunityModalFrame setIsModalOpened={setIsModalOpened}>
+      <CommunityPostDetail data={postDetailData} />
+    </CommunityModalFrame>
   );
 };
 
 export default CommunityPostDetailModal;
-
-const PostDetailModalWrapper = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20;
-  padding: 100px 0;
-  overflow-y: auto;
-`;
-
-const PostDetailModalContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 1280px;
-  background-color: white;
-  border-radius: 20px;
-  padding: 50px;
-
-  h3 {
-    width: 100%;
-    font-size: 25px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    color: ${(props) => props.theme.colors.Cosmic_black};
-    margin-bottom: 36px;
-  }
-
-  > button {
-    position: absolute;
-    top: 44.5px;
-    right: 60.5px;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
-
-const CreateInfo = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.colors.gray600};
-  font-size: ${(props) => props.theme.fontSize.text_xl};
-  margin-bottom: 91.68px;
-
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-right: 31.2px;
-  }
-
-  .like .comment {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .sub-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 27.02px;
-  }
-`;
-
-const ProfileImg = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: ${(props) => props.theme.colors.gray300};
-  border-radius: 50%;
-`;
-
-const Content = styled.div`
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 32px;
-  color: ${(props) => props.theme.colors.gray900};
-  margin-bottom: 82px;
-
-  .tags {
-    margin-top: 45px;
-  }
-`;
-
-const CommunityPostComments = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 52.32px;
-`;

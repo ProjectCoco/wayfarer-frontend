@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     ul { list-style:none }
     button, input, select { margin:0 }
     html { box-sizing:border-box }
-    *, :after, :before { box-sizing:inherit;font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif; }
+    *, :after, :before { box-sizing:inherit;font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; }
     img { height:auto;max-width:100% }
 `;
 

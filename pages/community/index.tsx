@@ -4,22 +4,30 @@ import Banner from "../../components/common/Banner/Banner";
 import CommunityCardCarousel from "../../components/pages/Community/CommunityCards";
 import CommunityInput from "../../components/pages/Community/CommunityInput";
 import CommunityPostDetailModal from "../../components/pages/Community/CommunityModal/CommunityPostDetailModal";
+import CommunityWriteModal from "../../components/pages/Community/CommunityModal/CommunityWriteModal";
 import CommunityPosts from "../../components/pages/Community/CommunityPosts";
 import CommunityTag from "../../components/pages/Community/CommunityTag";
 
 const Community = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isWriteModalOpened, setIsWriteModalOpened] = useState(false);
 
   return (
     <CommunityContainer isModalOpened={isModalOpened}>
       {isModalOpened && (
         <CommunityPostDetailModal setIsModalOpened={setIsModalOpened} />
       )}
+      {isWriteModalOpened && (
+        <CommunityWriteModal setIsModalOpened={setIsWriteModalOpened} />
+      )}
       <Banner text={"모집글 작성하기"} />
       <InnerContainer>
         <CommunityTag />
         <CommunityCardCarousel />
-        <CommunityInput placeholder="혜민님, 어떤 이야기를 나누고 싶으세요?" />
+        <CommunityInput
+          placeholder="혜민님, 어떤 이야기를 나누고 싶으세요?"
+          setIsWriteModalOpened={setIsWriteModalOpened}
+        />
         <CommunityPosts setIsModalOpened={setIsModalOpened} />
       </InnerContainer>
     </CommunityContainer>

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import WriteForm from "../../components/pages/write/WriteForm";
+import ProjectForm from "../../components/pages/write/ProjectForm";
 
 function Write() {
   return (
     <Container>
       <Title>사이드프로젝트</Title>
-      <WriteForm></WriteForm>
+      <ProjectForm />
     </Container>
   );
 }

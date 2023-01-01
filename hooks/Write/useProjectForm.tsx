@@ -1,6 +1,6 @@
-import React, { TextareaHTMLAttributes, useState } from "react";
+import React, { useState } from "react";
 
-interface WriteForm {
+interface ProjectForm {
   title: string;
   summary: string[];
   recruit: string;
@@ -9,8 +9,8 @@ interface WriteForm {
   content: string;
 }
 
-function useForm() {
-  const [form, setForm] = useState<WriteForm>({
+function useProjectForm() {
+  const [form, setForm] = useState<ProjectForm>({
     title: "",
     summary: [],
     recruit: "",
@@ -92,4 +92,4 @@ function useForm() {
   };
 }
 
-export default useForm;
+export default useProjectForm;

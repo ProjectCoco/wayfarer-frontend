@@ -1,0 +1,28 @@
+import React from "react";
+
+const Enter = ({ mode }: { mode: "comment" | "nestedComment" }) => {
+  return (
+    <svg
+      width={mode === "comment" ? "22" : "16"}
+      height={mode === "comment" ? "21" : "16"}
+      viewBox="0 0 22 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20.6106 1.06738V13.8229C20.6106 14.9275 19.7151 15.8229 18.6106 15.8229H2.35938"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M5.80457 12.0195L1.93311 15.8906L5.80457 19.7621"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+};
+
+export default Enter;

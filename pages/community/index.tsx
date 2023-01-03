@@ -27,6 +27,7 @@ const Community = () => {
         <CommunityInput
           placeholder="혜민님, 어떤 이야기를 나누고 싶으세요?"
           setIsWriteModalOpened={setIsWriteModalOpened}
+          mode="post"
         />
         <CommunityPosts setIsModalOpened={setIsModalOpened} />
       </InnerContainer>
@@ -50,4 +51,10 @@ const InnerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  > .input-container {
+    padding: 50px 0;
+    border-top: 1px solid ${(props) => props.theme.colors.gray300};
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  }
 `;

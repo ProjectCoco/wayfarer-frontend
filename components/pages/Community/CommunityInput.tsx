@@ -2,10 +2,11 @@ import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import PencilImg from "../../../public/Community/Pencil.svg";
-import EnterImg from "../../../public/Community/Enter.svg";
+
+import Enter from "./Enter";
 
 interface CommentInputProps {
-  mode?: "comment";
+  mode: "post" | "comment" | "nestedComment";
   placeholder: string;
   setIsWriteModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,16 +24,19 @@ const CommunityInput = ({
   };
 
   return (
-    <CommunityInputContainer mode={mode}>
+    <CommunityInputContainer className="input-container">
       <InputContainer>
-        <ProfileImg />
-        <CommunityInputForm onClick={handleFormClick}>
-          <input placeholder={placeholder} disabled={mode ? false : true} />
+        <ProfileImg mode={mode} />
+        <CommunityInputForm onClick={handleFormClick} mode={mode}>
+          <input
+            placeholder={placeholder}
+            disabled={mode === "post" ? true : false}
+          />
           <button>
-            {mode ? (
-              <Image src={EnterImg} alt="입력" />
-            ) : (
+            {mode === "post" ? (
               <Image src={PencilImg} alt="입력" />
+            ) : (
+              <Enter mode={mode} />
             )}
           </button>
         </CommunityInputForm>
@@ -43,14 +47,8 @@ const CommunityInput = ({
 
 export default CommunityInput;
 
-const CommunityInputContainer = styled.div<{ mode?: string }>`
+const CommunityInputContainer = styled.div`
   width: 100%;
-  padding: ${(props) => (props.mode ? "0" : "50px 0")};
-  border-top: ${(props) =>
-    props.mode ? "none" : `1px solid ${props.theme.colors.gray300}`};
-  border-bottom: ${(props) =>
-    props.mode ? "none" : `1px solid ${props.theme.colors.gray300}`};
-  margin-top: ${(props) => (props.mode ? "86px" : "0")};
 `;
 
 const InputContainer = styled.div`
@@ -58,14 +56,16 @@ const InputContainer = styled.div`
   gap: 30px;
 `;
 
-const ProfileImg = styled.div`
-  width: 70px;
-  height: 70px;
+const ProfileImg = styled.div<{ mode: string }>`
+  display: flex;
+  flex-shrink: 0;
+  width: ${(props) => (props.mode === "nestedComment" ? "50px" : "70px")};
+  height: ${(props) => (props.mode === "nestedComment" ? "50px" : "70px")};
   background-color: ${(props) => props.theme.colors.Cosmic_black};
   border-radius: 100%;
 `;
 
-const CommunityInputForm = styled.form`
+const CommunityInputForm = styled.form<{ mode?: string }>`
   display: flex;
   width: 100%;
   position: relative;
@@ -73,7 +73,7 @@ const CommunityInputForm = styled.form`
   input {
     display: flex;
     align-items: center;
-    height: 70px;
+    height: ${(props) => (props.mode === "nestedComment" ? "50px" : "70px")};
     flex-grow: 1;
     background-color: #f1f1f4;
     border: none;
@@ -87,13 +87,13 @@ const CommunityInputForm = styled.form`
   }
 
   button {
-    width: 50px;
-    height: 50px;
+    height: ${(props) => (props.mode === "nestedComment" ? "35px" : "50px")};
+    width: ${(props) => (props.mode === "nestedComment" ? "35px" : "50px")};
     background-color: ${(props) => props.theme.colors.Cosmic_black};
     border-radius: 100%;
     border: none;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: ${(props) => (props.mode === "nestedComment" ? "7.5px" : "10px")};
+    right: ${(props) => (props.mode === "nestedComment" ? "8px" : "10px")};
   }
 `;

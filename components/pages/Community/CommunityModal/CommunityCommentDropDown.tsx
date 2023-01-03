@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import SmallPencil from "../../../../public/Community/SmallPencil.svg";
-import SmallMessageCircle from "../../../../public/Community/SmallMessageCircle.svg";
-import Alert from "../../../../public/Community/Alert.svg";
-import Image from "next/image";
+import CommentModalContent from "./CommentModalContent";
 
-const CommunityCommentDropDown = () => {
+interface CommentDropDownMenus {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+interface CommentDropDownProps {
+  setIsNestedInput: React.Dispatch<React.SetStateAction<boolean>>;
+  handleChangeDrop: (value?: boolean | undefined) => void;
+  isNestedInput: boolean;
+}
+
+export const CommentDropDownMenus: CommentDropDownMenus = {
+  author: { comment: "답댓글 달기", edit: "수정하기", remove: "삭제하기" },
+  common: { comment: "답댓글 달기", alert: "댓글 신고하기" },
+};
+
+const CommunityCommentDropDown = ({
+  setIsNestedInput,
+  handleChangeDrop,
+  isNestedInput,
+}: CommentDropDownProps) => {
+  const [isAuthor, setIsAuthor] = useState(false);
+
   return (
     <ModalContainer
       onClick={(e) => {
@@ -15,18 +35,18 @@ const CommunityCommentDropDown = () => {
       <div className="triangle" />
       <div className="triangle-white" />
       <ModalContentContainer>
-        <ModalContent>
-          <Image src={SmallMessageCircle} alt="comment" />
-          <span>답댓글 달기</span>
-        </ModalContent>
-        <ModalContent>
-          <Image src={SmallPencil} alt="edit" />
-          <span>수정하기</span>
-        </ModalContent>
-        <ModalContent className="alert">
-          <Image src={Alert} alt="delete" />
-          <span>삭제하기</span>
-        </ModalContent>
+        {Object.keys(CommentDropDownMenus[isAuthor ? "author" : "common"]).map(
+          (menu) => (
+            <CommentModalContent
+              key={menu}
+              menu={menu}
+              type={isAuthor ? "author" : "common"}
+              setIsNestedInput={setIsNestedInput}
+              handleChangeDrop={handleChangeDrop}
+              isNestedInput={isNestedInput}
+            />
+          )
+        )}
       </ModalContentContainer>
     </ModalContainer>
   );
@@ -76,7 +96,7 @@ const ModalContentContainer = styled.div`
   overflow: hidden;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
 
-  .alert {
+  .pink {
     color: ${(props) => props.theme.colors.Creative_pink};
     border-bottom: none;
   }
@@ -90,6 +110,7 @@ const ModalContent = styled.div`
   color: ${(props) => props.theme.colors.Cosmic_black};
   border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
   background-color: white;
+  cursor: pointer;
 
   span {
     margin-left: 10px;

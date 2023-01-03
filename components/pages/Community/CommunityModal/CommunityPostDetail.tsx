@@ -38,7 +38,7 @@ const CommunityPostDetail = ({ data }: { data: PostDetailData }) => {
         </div>
       </Content>
       <PostLikeButton like={data.like} />
-      <CommunityInput mode="comment" placeholder="댓글을 남겨주세요." />
+      <CommunityInput placeholder="댓글을 남겨주세요." mode="comment" />
       <CommunityPostComments>
         {data.comments.map((comment, idx) => (
           <CommunityPostComment key={idx} data={comment} />
@@ -75,6 +75,10 @@ const PostDetailModalContainer = styled.div`
     border: none;
     background-color: transparent;
     cursor: pointer;
+  }
+
+  > .input-container {
+    margin-top: 86px;
   }
 `;
 
@@ -131,4 +135,8 @@ const CommunityPostComments = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 52.32px;
+
+  > div:last-child {
+    border: none;
+  }
 `;

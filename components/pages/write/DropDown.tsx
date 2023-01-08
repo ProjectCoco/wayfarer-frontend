@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import useDropDown from "../../../hooks/Write/useDropDown";
 import DropDownIcon from "./DropDownIcon";
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLDivElement> {
   width: string;
   menuItems: string[];
   defaultValue?: string;
   value?: string;
-  handleDateChange?: (date: string, type: string) => void;
+  handleClick: (date: string) => void;
 }
 
 function DropDown({
   menuItems,
   defaultValue,
   value,
-  handleDateChange,
+  onClick,
+  handleClick,
   ...props
 }: Props) {
   const { isDrop, ref, handleChangeDrop } = useDropDown();
@@ -32,11 +33,7 @@ function DropDown({
             <DropDownItem
               key={item}
               onClick={() => {
-                if (handleDateChange) {
-                  if (defaultValue === "YYYY년") handleDateChange(item, "year");
-                  if (defaultValue === "MM월") handleDateChange(item, "month");
-                  if (defaultValue === "DD일") handleDateChange(item, "day");
-                }
+                handleClick(item);
                 handleChangeDrop(false);
               }}
             >

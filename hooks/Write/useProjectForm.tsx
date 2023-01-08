@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
+interface Recurit {
+  projectName: string;
+  projectMemberNum: number;
+}
+
 interface ProjectForm {
   title: string;
   summary: string[];
-  recruit: string;
+  recruit: Recurit | Object;
   tech: string[];
   start: [string, string, string];
   content: string;
@@ -13,11 +18,13 @@ function useProjectForm() {
   const [form, setForm] = useState<ProjectForm>({
     title: "",
     summary: [],
-    recruit: "",
+    recruit: [],
     tech: [],
     start: ["", "", ""],
     content: "",
   });
+
+  const [memberNum, setMemberNum] = useState(1);
 
   const handleChange = (
     e:
@@ -82,6 +89,13 @@ function useProjectForm() {
     console.log(form);
   };
 
+  const handleAddMember = () => {
+    if (memberNum >= 5) return;
+    setMemberNum((prev) => prev + 1);
+  };
+
+  const handleRecruit = (key: string, value: string) => {};
+
   return {
     form,
     handleChange,
@@ -89,6 +103,8 @@ function useProjectForm() {
     handleRemoveTag,
     handleDateChange,
     handleSubmit,
+    handleAddMember,
+    memberNum,
   };
 }
 

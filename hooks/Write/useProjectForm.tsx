@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-
-interface Recurit {
-  projectName: string;
-  projectMemberNum: number;
-}
+import React, { useEffect, useState } from "react";
 
 interface ProjectForm {
   title: string;
   summary: string[];
-  recruit: Recurit | Object;
+  recruit: string[][];
   tech: string[];
   start: [string, string, string];
   content: string;
@@ -18,13 +13,30 @@ function useProjectForm() {
   const [form, setForm] = useState<ProjectForm>({
     title: "",
     summary: [],
-    recruit: [],
+    recruit: [["", "1명"]],
     tech: [],
     start: ["", "", ""],
     content: "",
   });
 
   const [memberNum, setMemberNum] = useState(1);
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      recruit: [...form.recruit, ["", "1명"]],
+    });
+  }, [memberNum]);
+
+  const handleRecruit = (idx: number, idx2: number, value: string) => {
+    setForm({
+      ...form,
+      recruit: form.recruit.map((item, i) => {
+        if (i === idx) item[idx2] = value;
+        return item;
+      }),
+    });
+  };
 
   const handleChange = (
     e:
@@ -94,8 +106,6 @@ function useProjectForm() {
     setMemberNum((prev) => prev + 1);
   };
 
-  const handleRecruit = (key: string, value: string) => {};
-
   return {
     form,
     handleChange,
@@ -104,6 +114,7 @@ function useProjectForm() {
     handleDateChange,
     handleSubmit,
     handleAddMember,
+    handleRecruit,
     memberNum,
   };
 }

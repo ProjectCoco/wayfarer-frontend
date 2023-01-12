@@ -30,6 +30,7 @@ function WriteForm() {
     handleDateChange,
     handleSubmit,
     handleAddMember,
+    handleRecruit,
   } = useForm();
   console.info(memberNum);
   return (
@@ -62,20 +63,26 @@ function WriteForm() {
         customInput={
           <FlexBox>
             <FlexBox1>
-              {Array.from({ length: memberNum }).map(() => (
+              {Array.from({ length: memberNum }).map((_, i) => (
                 <DropDownList
                   icons={[
                     <DropDown
                       width="102px"
                       menuItems={jobGroup}
                       defaultValue="직군 선택하기"
-                      handleClick={() => console.log("직군")}
+                      value={form.recruit[i][0]}
+                      handleClick={(item) => {
+                        handleRecruit(i, 0, item);
+                      }}
                     />,
                     <DropDown
                       width="41px"
                       menuItems={recruitNumber}
                       defaultValue="1명"
-                      handleClick={() => console.log("인원")}
+                      value={form.recruit[i][1]}
+                      handleClick={(item) => {
+                        handleRecruit(i, 1, item);
+                      }}
                     />,
                   ]}
                 />

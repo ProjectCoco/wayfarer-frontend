@@ -13,7 +13,7 @@ function useProjectForm() {
   const [form, setForm] = useState<ProjectForm>({
     title: "",
     summary: [],
-    recruit: [["", "1명"]],
+    recruit: [],
     tech: [],
     start: ["", "", ""],
     content: "",

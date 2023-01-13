@@ -19,6 +19,7 @@ import DropDownList from "./DropDownList";
 import useForm from "../../../hooks/Write/useProjectForm";
 import SubmitButton from "./SubmitButton";
 import AddPeople from "./AddPeople";
+import TagHelper from "./TagHelper";
 
 function WriteForm() {
   const {
@@ -32,7 +33,6 @@ function WriteForm() {
     handleAddMember,
     handleRecruit,
   } = useForm();
-  console.info(memberNum);
   return (
     <Form onSubmit={handleSubmit}>
       <LabelBlock
@@ -70,7 +70,9 @@ function WriteForm() {
                       width="102px"
                       menuItems={jobGroup}
                       defaultValue="직군 선택하기"
-                      value={form.recruit[i][0]}
+                      value={
+                        form.recruit[i] ? form.recruit[i][0] : "직군 선택하기"
+                      }
                       handleClick={(item) => {
                         handleRecruit(i, 0, item);
                       }}
@@ -79,7 +81,7 @@ function WriteForm() {
                       width="41px"
                       menuItems={recruitNumber}
                       defaultValue="1명"
-                      value={form.recruit[i][1]}
+                      value={form.recruit[i] ? form.recruit[i][1] : "1명"}
                       handleClick={(item) => {
                         handleRecruit(i, 1, item);
                       }}
@@ -151,6 +153,7 @@ function WriteForm() {
         }
       />
       <SubmitButton />
+      <TagHelper right={0} top={"55px"} />
     </Form>
   );
 }
@@ -158,6 +161,7 @@ function WriteForm() {
 export default WriteForm;
 
 const Form = styled.form`
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;

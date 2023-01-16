@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const RecruitToggle = () => {
-  const [isToggleActive, setIsToggleActive] = useState(false);
+interface ToggleProps {
+  isToggled: boolean;
+  setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const RecruitToggle = ({ isToggled, setIsToggled }: ToggleProps) => {
   const handleToggleButtonClick = () => {
-    setIsToggleActive(!isToggleActive);
+    setIsToggled(!isToggled);
   };
 
   return (
     <RecruitToggleContainer>
       <div>모집중</div>
-      <ToggleButton onClick={handleToggleButtonClick} isActive={isToggleActive}>
-        <Circle isActive={isToggleActive} />
+      <ToggleButton onClick={handleToggleButtonClick} isActive={isToggled}>
+        <Circle isActive={isToggled} />
       </ToggleButton>
     </RecruitToggleContainer>
   );

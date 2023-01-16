@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AuthorOccupationTag from "../AuthorOccupationTag";
 import ThreeDots from "../../../../public/Community/ThreeDots.svg";
 import Image from "next/image";
 import CommunityCommentDropDown from "./CommunityCommentDropDown";
 import useDropDown from "../../../../hooks/Write/useDropDown";
+import CommunityInput from "../CommunityInput";
 
 interface CommunityPostCommentData {
   nickName: string;
@@ -19,11 +20,18 @@ interface CommunityPostCommentProps {
 
 const CommunityPostComment = ({ data }: CommunityPostCommentProps) => {
   const { isDrop, ref, handleChangeDrop } = useDropDown();
+  const [isNestedInput, setIsNestedInput] = useState(false);
 
   return (
     <CommentContainer>
       <CreateInfo>
-        {isDrop && <CommunityCommentDropDown />}
+        {isDrop && (
+          <CommunityCommentDropDown
+            setIsNestedInput={setIsNestedInput}
+            handleChangeDrop={handleChangeDrop}
+            isNestedInput={isNestedInput}
+          />
+        )}
         <div className="info">
           <ProfileImg />
           <div className="author">{data.nickName}</div>
@@ -41,6 +49,9 @@ const CommunityPostComment = ({ data }: CommunityPostCommentProps) => {
         </div>
       </CreateInfo>
       <p>{data.content}</p>
+      {isNestedInput && (
+        <CommunityInput mode="nestedComment" placeholder="댓글을 남겨보세요" />
+      )}
     </CommentContainer>
   );
 };
@@ -60,6 +71,10 @@ const CommentContainer = styled.div`
 
   p {
     color: ${(props) => props.theme.colors.Cosmic_black};
+  }
+
+  > .input-container {
+    margin: 20px 0;
   }
 `;
 

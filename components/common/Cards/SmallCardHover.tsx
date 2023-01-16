@@ -1,24 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import { BigCardProps } from "../../pages/Home/BigCards";
+import { ProjectMember } from "../../../pages/project";
 import SmallLikeButton from "./SmallLikeButton";
 
-const SmallCardHover = (data: BigCardProps) => {
+interface SmallCardHoverProps {
+  skills: string[];
+  members: ProjectMember[];
+  title: string;
+}
+
+const SmallCardHover = ({ skills, members, title }: SmallCardHoverProps) => {
   return (
     <CardContainer>
       <CardImg>
         <ProjectHeader>
-          <span>{data.name}</span>
-          <SmallLikeButton like={data.like} />
+          <span>{title.slice(0, 17)}...</span>
+          <SmallLikeButton like={false} /> {/* like props 추가 적용 필요 */}
         </ProjectHeader>
-        <ProjectMemeber>{data.memeber.join(" / ")}</ProjectMemeber>
+        <ProjectMemeber>
+          {members
+            .map(
+              (member) =>
+                `${
+                  member.position[0].toUpperCase() + member.position.slice(1)
+                }(${member.totalMember})`
+            )
+            .join(" / ")}
+        </ProjectMemeber>
         <Stacks>
-          {data.stack.slice(0, 4).map((el, idx) => (
-            <div key={idx}>{el}</div>
+          {skills.slice(0, 4).map((el, idx) => (
+            <div key={idx}>{el[0]}</div>
           ))}
-          <span>
-            {data.stack.length > 4 ? ` + ${data.stack.length - 4}` : ""}
-          </span>
+          <span>{skills.length > 4 ? ` + ${skills.length - 4}` : ""}</span>
         </Stacks>
       </CardImg>
     </CardContainer>

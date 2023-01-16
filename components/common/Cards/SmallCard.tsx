@@ -7,9 +7,49 @@ import {
   SmallCardsImgType,
 } from "../../../public/Cards/SmallCards";
 import SmallCardHover from "./SmallCardHover";
+import { ProjectMember } from "../../../pages/project";
 
-const SmallCard = (data: BigCardProps) => {
+interface SmallCardProps {
+  members: ProjectMember[];
+  skills: string[];
+  tags: string[];
+  startTime: string;
+  title: string;
+  type: "project" | "study";
+}
+
+const SmallCard = ({
+  members,
+  skills,
+  tags,
+  startTime,
+  title,
+  type,
+}: SmallCardProps) => {
   const [isHover, setIsHover] = useState(false);
+
+  const getPosition = (members: ProjectMember[]) => {
+    let membersPositions = members.map((member) => member.position);
+    let positionList = ["frontend", "backend", "planner", "designer"];
+
+    if (positionList.length === 1) {
+      for (let i = 0; i < positionList.length; i++) {
+        if (
+          membersPositions[0] === positionList[0] ||
+          membersPositions[0] === positionList[1]
+        )
+          return "developer";
+        else return positionList[i];
+      }
+    } else if (
+      membersPositions.length === 2 &&
+      membersPositions.includes("frontend") &&
+      membersPositions.includes("backend")
+    )
+      return "developer";
+
+    return "all";
+  };
 
   const selectCardImg = (type: string, occupation: string) => {
     return Object.keys(SmallCardsImg).filter(
@@ -18,6 +58,8 @@ const SmallCard = (data: BigCardProps) => {
     )[0];
   };
 
+  const position = getPosition(members);
+
   return (
     <CardContainer>
       <Card
@@ -25,27 +67,25 @@ const SmallCard = (data: BigCardProps) => {
         onMouseLeave={() => setIsHover(false)}
       >
         {isHover ? (
-          <SmallCardHover {...data} />
+          <SmallCardHover skills={skills} members={members} title={title} />
         ) : (
           <Image
             src={
-              SmallCardsImg[
-                selectCardImg(data.type, data.occupation) as SmallCardsImgType
-              ]
+              SmallCardsImg[selectCardImg(type, position) as SmallCardsImgType]
             }
-            alt={`${data.occupation}Card`}
+            alt={`${position}Card`}
           />
         )}
       </Card>
       <Text>
-        <ProjectTitle>{data.title}</ProjectTitle>
+        <ProjectTitle>{title}</ProjectTitle>
         <Tags>
           <Tag>
-            {data.tag.map((el, idx) => (
+            {tags.map((el, idx) => (
               <div key={idx}>#{el}</div>
             ))}
           </Tag>
-          <div>{data.period}</div>
+          <div>{startTime.slice(5, 10).replace("-", ".")}</div>
         </Tags>
       </Text>
     </CardContainer>

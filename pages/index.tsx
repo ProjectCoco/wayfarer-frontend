@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       <SubBanner />
       <SmallCardsContainer>
         <CardsHeader title={"모든 사이드 프로젝트를 모아모아"} />
-        <SmallCards />
+        {/* <SmallCards /> */}
       </SmallCardsContainer>
     </HomeContainer>
   );

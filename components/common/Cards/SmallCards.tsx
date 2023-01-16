@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ProjectPost } from "../../../pages/project";
 import SmallCard from "./SmallCard";
 
 const data = [
@@ -53,11 +54,24 @@ const data = [
   },
 ];
 
-const SmallCards = () => {
+interface SmallCardsProps {
+  data: ProjectPost[];
+  type: "project" | "study";
+}
+
+const SmallCards = ({ data, type }: SmallCardsProps) => {
   return (
     <SmallCardsContainer>
       {data.map((data) => (
-        <SmallCard key={data.id} {...data} />
+        <SmallCard
+          key={data.projectArticleId}
+          members={data.projectMemberResponses}
+          skills={data.projectSkills}
+          tags={data.projectTags}
+          startTime={data.startTime}
+          title={data.title}
+          type={type}
+        />
       ))}
     </SmallCardsContainer>
   );

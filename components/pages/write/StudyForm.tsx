@@ -63,11 +63,13 @@ function StudyForm() {
                 width="102px"
                 menuItems={jobGroup}
                 defaultValue="직군 선택하기"
+                handleClick={() => console.log("직군")}
               />,
               <DropDown
                 width="41px"
                 menuItems={recruitNumber}
                 defaultValue="1명"
+                handleClick={() => console.log("인원")}
               />,
             ]}
           />
@@ -83,21 +85,27 @@ function StudyForm() {
                 menuItems={getYear()}
                 defaultValue={"YYYY년"}
                 value={form.start[0]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "year");
+                }}
               />,
               <DropDown
                 width="56px"
                 menuItems={getMonth}
                 defaultValue={"MM월"}
                 value={form.start[1]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "month");
+                }}
               />,
               <DropDown
                 width="51px"
                 menuItems={getDay}
                 defaultValue={"DD일"}
                 value={form.start[2]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "day");
+                }}
               />,
             ]}
           />

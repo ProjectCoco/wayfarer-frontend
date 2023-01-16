@@ -18,15 +18,20 @@ import {
 import DropDownList from "./DropDownList";
 import useForm from "../../../hooks/Write/useProjectForm";
 import SubmitButton from "./SubmitButton";
+import AddPeople from "./AddPeople";
+import TagHelper from "./TagHelper";
 
 function WriteForm() {
   const {
     form,
+    memberNum,
     handleChange,
     handleAddTag,
     handleRemoveTag,
     handleDateChange,
     handleSubmit,
+    handleAddMember,
+    handleRecruit,
   } = useForm();
   return (
     <Form onSubmit={handleSubmit}>
@@ -56,20 +61,37 @@ function WriteForm() {
       <LabelBlock
         label={<Label label="모집인원" icon={<Asterisk />} />}
         customInput={
-          <DropDownList
-            icons={[
-              <DropDown
-                width="102px"
-                menuItems={jobGroup}
-                defaultValue="직군 선택하기"
-              />,
-              <DropDown
-                width="41px"
-                menuItems={recruitNumber}
-                defaultValue="1명"
-              />,
-            ]}
-          />
+          <FlexBox>
+            <FlexBox1>
+              {Array.from({ length: memberNum }).map((_, i) => (
+                <DropDownList
+                  icons={[
+                    <DropDown
+                      width="102px"
+                      menuItems={jobGroup}
+                      defaultValue="직군 선택하기"
+                      value={
+                        form.recruit[i] ? form.recruit[i][0] : "직군 선택하기"
+                      }
+                      handleClick={(item) => {
+                        handleRecruit(i, 0, item);
+                      }}
+                    />,
+                    <DropDown
+                      width="41px"
+                      menuItems={recruitNumber}
+                      defaultValue="1명"
+                      value={form.recruit[i] ? form.recruit[i][1] : "1명"}
+                      handleClick={(item) => {
+                        handleRecruit(i, 1, item);
+                      }}
+                    />,
+                  ]}
+                />
+              ))}
+            </FlexBox1>
+            <AddPeople onClick={() => handleAddMember()} />
+          </FlexBox>
         }
       />
       <LabelBlock
@@ -94,21 +116,27 @@ function WriteForm() {
                 menuItems={getYear()}
                 defaultValue={"YYYY년"}
                 value={form.start[0]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "year");
+                }}
               />,
               <DropDown
                 width="56px"
                 menuItems={getMonth}
                 defaultValue={"MM월"}
                 value={form.start[1]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "month");
+                }}
               />,
               <DropDown
                 width="51px"
                 menuItems={getDay}
                 defaultValue={"DD일"}
                 value={form.start[2]}
-                handleDateChange={handleDateChange}
+                handleClick={(date: string) => {
+                  handleDateChange(date, "day");
+                }}
               />,
             ]}
           />
@@ -125,6 +153,7 @@ function WriteForm() {
         }
       />
       <SubmitButton />
+      <TagHelper right={0} top={"55px"} />
     </Form>
   );
 }
@@ -132,8 +161,21 @@ function WriteForm() {
 export default WriteForm;
 
 const Form = styled.form`
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 25px;
+`;
+
+const FlexBox1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

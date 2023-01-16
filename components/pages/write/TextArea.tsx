@@ -23,7 +23,7 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   min-height: 295px;
   border: none;
-  resize: none;
+  resize: vertical;
 
   &::placeholder {
     font-weight: 500;

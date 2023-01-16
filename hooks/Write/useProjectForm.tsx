@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface ProjectForm {
   title: string;
   summary: string[];
-  recruit: string;
+  recruit: string[][];
   tech: string[];
   start: [string, string, string];
   content: string;
@@ -13,11 +13,30 @@ function useProjectForm() {
   const [form, setForm] = useState<ProjectForm>({
     title: "",
     summary: [],
-    recruit: "",
+    recruit: [],
     tech: [],
     start: ["", "", ""],
     content: "",
   });
+
+  const [memberNum, setMemberNum] = useState(1);
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      recruit: [...form.recruit, ["", "1명"]],
+    });
+  }, [memberNum]);
+
+  const handleRecruit = (idx: number, idx2: number, value: string) => {
+    setForm({
+      ...form,
+      recruit: form.recruit.map((item, i) => {
+        if (i === idx) item[idx2] = value;
+        return item;
+      }),
+    });
+  };
 
   const handleChange = (
     e:
@@ -82,6 +101,11 @@ function useProjectForm() {
     console.log(form);
   };
 
+  const handleAddMember = () => {
+    if (memberNum >= 5) return;
+    setMemberNum((prev) => prev + 1);
+  };
+
   return {
     form,
     handleChange,
@@ -89,6 +113,9 @@ function useProjectForm() {
     handleRemoveTag,
     handleDateChange,
     handleSubmit,
+    handleAddMember,
+    handleRecruit,
+    memberNum,
   };
 }
 

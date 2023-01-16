@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../../components/common/Banner/Banner";
 import SmallCards from "../../components/common/Cards/SmallCards";
@@ -6,8 +6,23 @@ import OccupationFilter from "../../components/common/OccupationFilter/Occupatio
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
 import { FilterMenuType } from "../../utils/Filter";
 
+interface StudyPost {
+  studyArticleId: number;
+  title: string;
+  enabled: boolean;
+  positionName: string;
+  studyTags: string[];
+  totalMember: number;
+  countMember: number;
+  startTime: string;
+  deadline: null | string;
+  status: string;
+}
+
 const Study = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterMenuType>("전체");
+  const [isToggled, setIsToggled] = useState(false);
+
   return (
     <StudyContainer>
       <Banner text={"모집글 작성하기"} />
@@ -16,8 +31,8 @@ const Study = () => {
           selected={selectedFilter}
           setSelectedFilter={setSelectedFilter}
         />
-        <RecruitToggle />
-        <SmallCards />
+        <RecruitToggle isToggled={isToggled} setIsToggled={setIsToggled} />
+        {/* <SmallCards /> */}
       </InnerContainer>
     </StudyContainer>
   );

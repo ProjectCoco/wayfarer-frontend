@@ -7,17 +7,18 @@ import OccupationFilter from "../../components/common/OccupationFilter/Occupatio
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
 import { FilterMenuType } from "../../utils/Filter";
 
-interface StudyPost {
-  studyArticleId: number;
-  title: string;
-  enabled: boolean;
-  positionName: string;
-  studyTags: string[];
+interface StudyMember {
+  studyMemberId: number;
+  position: string;
   totalMember: number;
-  countMember: number;
-  startTime: string;
-  deadline: null | string;
-  status: string;
+}
+
+interface StudyPost {
+  createdTime: string;
+  studyArticleId: number;
+  studyMemberResponses: StudyMember[];
+  studyTags: string[];
+  title: string;
 }
 
 const Study = () => {

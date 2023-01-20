@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface ToggleProps {
   isToggled: boolean;
-  setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
+  handleToggleButtonClick: () => void;
 }
 
-const RecruitToggle = ({ isToggled, setIsToggled }: ToggleProps) => {
-  const handleToggleButtonClick = () => {
-    setIsToggled(!isToggled);
-  };
-
+const RecruitToggle = ({ isToggled, handleToggleButtonClick }: ToggleProps) => {
   return (
     <RecruitToggleContainer>
       <div>모집중</div>

@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { ProjectMember } from "../../../pages/project";
+import { StudyMember } from "../../../pages/study";
 import SmallLikeButton from "./SmallLikeButton";
 
 interface SmallCardHoverProps {
-  skills: string[];
-  members: ProjectMember[];
+  skills?: string[];
+  members: ProjectMember[] | StudyMember[];
   title: string;
 }
 
@@ -14,7 +15,7 @@ const SmallCardHover = ({ skills, members, title }: SmallCardHoverProps) => {
     <CardContainer>
       <CardImg>
         <ProjectHeader>
-          <span>{title.slice(0, 17)}...</span>
+          <span>{title.length < 19 ? title : `${title.slice(0, 18)}...`}</span>
           <SmallLikeButton like={false} /> {/* like props 추가 적용 필요 */}
         </ProjectHeader>
         <ProjectMemeber>
@@ -27,12 +28,16 @@ const SmallCardHover = ({ skills, members, title }: SmallCardHoverProps) => {
             )
             .join(" / ")}
         </ProjectMemeber>
-        <Stacks>
-          {skills.slice(0, 4).map((el, idx) => (
-            <div key={idx}>{el[0]}</div>
-          ))}
-          <span>{skills.length > 4 ? ` + ${skills.length - 4}` : ""}</span>
-        </Stacks>
+        {skills ? (
+          <Stacks>
+            {skills.slice(0, 4).map((el, idx) => (
+              <div key={idx}>{el[0]}</div>
+            ))}
+            <span>{skills.length > 4 ? ` + ${skills.length - 4}` : ""}</span>
+          </Stacks>
+        ) : (
+          <div></div>
+        )}
       </CardImg>
     </CardContainer>
   );

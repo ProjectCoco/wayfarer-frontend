@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { axiosInstance } from "../../apis/axiosInstance";
 import Banner from "../../components/common/Banner/Banner";
-import SmallCards from "../../components/common/Cards/SmallCards";
 import OccupationFilter from "../../components/common/OccupationFilter/OccupationFilter";
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
+import SmallStudyCards from "../../components/pages/Study/SmallStudyCards";
+import useToggle from "../../hooks/RecruitToggle/useToggle";
 import { FilterMenuType } from "../../utils/Filter";
 
-interface StudyMember {
+export interface StudyMember {
   studyMemberId: number;
   position: string;
   totalMember: number;
 }
 
-interface StudyPost {
+export interface StudyPost {
   createdTime: string;
   studyArticleId: number;
   studyMemberResponses: StudyMember[];
@@ -23,7 +24,8 @@ interface StudyPost {
 
 const Study = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterMenuType>("전체");
-  const [isToggled, setIsToggled] = useState(false);
+  const [studyList, setStudyList] = useState<StudyPost[]>();
+  const { isToggled, handleToggleButtonClick } = useToggle();
 
   const getStudyList = async (page: number, status: boolean) => {
     try {
@@ -31,7 +33,6 @@ const Study = () => {
         `/study?page=${page}&status=${status}`
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       throw new Error("프로젝트 목록 조회 실패");
@@ -39,9 +40,10 @@ const Study = () => {
   };
 
   useEffect(() => {
-    getStudyList(1, true);
-  }, []);
+    getStudyList(1, isToggled).then((res) => setStudyList(res.data));
+  }, [isToggled]);
 
+  if (!studyList) return <div>Loading...</div>;
   return (
     <StudyContainer>
       <Banner text={"모집글 작성하기"} />
@@ -50,8 +52,11 @@ const Study = () => {
           selected={selectedFilter}
           setSelectedFilter={setSelectedFilter}
         />
-        <RecruitToggle isToggled={isToggled} setIsToggled={setIsToggled} />
-        {/* <SmallCards /> */}
+        <RecruitToggle
+          isToggled={isToggled}
+          handleToggleButtonClick={handleToggleButtonClick}
+        />
+        <SmallStudyCards data={studyList} />
       </InnerContainer>
     </StudyContainer>
   );

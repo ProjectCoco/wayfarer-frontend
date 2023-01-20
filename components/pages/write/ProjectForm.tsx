@@ -51,10 +51,10 @@ function WriteForm() {
         customInput={
           <TagInput
             placeholder="#프로젝트를 키워드로 표현해주세요 (최대 5개 입력)"
-            type="summary"
+            type="projectTags"
             handleAddTag={handleAddTag}
             handleRemoveTag={handleRemoveTag}
-            tags={form.summary}
+            tags={form.projectTags}
           />
         }
       />
@@ -71,7 +71,9 @@ function WriteForm() {
                       menuItems={jobGroup}
                       defaultValue="직군 선택하기"
                       value={
-                        form.recruit[i] ? form.recruit[i][0] : "직군 선택하기"
+                        form.projectMember[i]
+                          ? form.projectMember[i][0]
+                          : "직군 선택하기"
                       }
                       handleClick={(item) => {
                         handleRecruit(i, 0, item);
@@ -81,7 +83,9 @@ function WriteForm() {
                       width="41px"
                       menuItems={recruitNumber}
                       defaultValue="1명"
-                      value={form.recruit[i] ? form.recruit[i][1] : "1명"}
+                      value={
+                        form.projectMember[i] ? form.projectMember[i][1] : "1명"
+                      }
                       handleClick={(item) => {
                         handleRecruit(i, 1, item);
                       }}
@@ -99,10 +103,10 @@ function WriteForm() {
         customInput={
           <TagInput
             placeholder="#기술언어를 입력해주세요."
-            type="tech"
+            type="projectSkills"
             handleAddTag={handleAddTag}
             handleRemoveTag={handleRemoveTag}
-            tags={form.tech}
+            tags={form.projectSkills}
           />
         }
       />
@@ -115,7 +119,7 @@ function WriteForm() {
                 width="64px"
                 menuItems={getYear()}
                 defaultValue={"YYYY년"}
-                value={form.start[0]}
+                value={form.startTime[0]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "year");
                 }}
@@ -124,7 +128,7 @@ function WriteForm() {
                 width="56px"
                 menuItems={getMonth}
                 defaultValue={"MM월"}
-                value={form.start[1]}
+                value={form.startTime[1]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "month");
                 }}
@@ -133,7 +137,7 @@ function WriteForm() {
                 width="51px"
                 menuItems={getDay}
                 defaultValue={"DD일"}
-                value={form.start[2]}
+                value={form.startTime[2]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "day");
                 }}

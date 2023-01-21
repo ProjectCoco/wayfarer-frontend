@@ -15,7 +15,7 @@ const SmallStudyCards = ({ data }: SmallCardsProps) => {
           key={data.studyArticleId}
           members={data.studyMemberResponses}
           tags={data.studyTags}
-          startTime={data.createdTime} // 임의로 createdTime으로 설정, 백엔드에 데이터 요청 필요
+          startTime={data.startTime}
           title={data.title}
           type="study"
         />

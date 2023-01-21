@@ -16,6 +16,7 @@ export interface StudyMember {
 
 export interface StudyPost {
   createdTime: string;
+  startTime: string;
   studyArticleId: number;
   studyMemberResponses: StudyMember[];
   studyTags: string[];

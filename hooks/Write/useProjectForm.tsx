@@ -1,21 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { createProject } from "../../apis/axiosInstance";
+import { dateProcessing, memberProcessing } from "../../utils/write/utiles";
 
 interface ProjectForm {
   title: string;
-  summary: string[];
-  recruit: string[][];
-  tech: string[];
-  start: [string, string, string];
+  projectTags: string[];
+  projectMember: string[][];
+  projectSkills: string[];
+  startTime: [string, string, string];
   content: string;
 }
 
 function useProjectForm() {
   const [form, setForm] = useState<ProjectForm>({
     title: "",
-    summary: [],
-    recruit: [],
-    tech: [],
-    start: ["", "", ""],
+    projectTags: [],
+    projectMember: [],
+    projectSkills: [],
+    startTime: ["", "", ""],
     content: "",
   });
 
@@ -24,14 +27,14 @@ function useProjectForm() {
   useEffect(() => {
     setForm({
       ...form,
-      recruit: [...form.recruit, ["", "1명"]],
+      projectMember: [...form.projectMember, ["", "1명"]],
     });
   }, [memberNum]);
 
   const handleRecruit = (idx: number, idx2: number, value: string) => {
     setForm({
       ...form,
-      recruit: form.recruit.map((item, i) => {
+      projectMember: form.projectMember.map((item, i) => {
         if (i === idx) item[idx2] = value;
         return item;
       }),
@@ -52,7 +55,7 @@ function useProjectForm() {
 
   const handleAddTag = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    type: "summary" | "tech"
+    type: "projectTags" | "projectSkills"
   ) => {
     if (form[type].length > 5) return;
 
@@ -68,7 +71,10 @@ function useProjectForm() {
     }
   };
 
-  const handleRemoveTag = (tag: string, type: "summary" | "tech") => {
+  const handleRemoveTag = (
+    tag: string,
+    type: "projectTags" | "projectSkills"
+  ) => {
     setForm({
       ...form,
       [type]: form[type].filter((t) => t !== tag),
@@ -79,26 +85,34 @@ function useProjectForm() {
     if (type === "year") {
       setForm({
         ...form,
-        start: [date, form.start[1], form.start[2]],
+        startTime: [date, form.startTime[1], form.startTime[2]],
       });
     }
     if (type === "month") {
       setForm({
         ...form,
-        start: [form.start[0], date, form.start[2]],
+        startTime: [form.startTime[0], date, form.startTime[2]],
       });
     }
     if (type === "day") {
       setForm({
         ...form,
-        start: [form.start[0], form.start[1], date],
+        startTime: [form.startTime[0], form.startTime[1], date],
       });
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
+    const memberArr = memberProcessing(form.projectMember);
+    const validDate = dateProcessing(form.startTime);
+    const requestForm = {
+      ...form,
+      projectMember: memberArr,
+      startTime: validDate,
+    };
+
+    createProject(requestForm);
   };
 
   const handleAddMember = () => {

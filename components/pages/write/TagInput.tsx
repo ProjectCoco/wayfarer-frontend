@@ -4,12 +4,12 @@ import WriteInput from "./WriteInput";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   tags: string[];
-  type: "summary" | "tech";
+  type: "projectTags" | "projectSkills";
   handleAddTag: (
     e: KeyboardEvent<HTMLInputElement>,
-    type: "summary" | "tech"
+    type: "projectTags" | "projectSkills"
   ) => void;
-  handleRemoveTag: (tag: string, type: "summary" | "tech") => void;
+  handleRemoveTag: (tag: string, type: "projectTags" | "projectSkills") => void;
 }
 
 function TagInput({

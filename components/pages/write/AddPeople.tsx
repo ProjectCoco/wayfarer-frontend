@@ -29,6 +29,7 @@ const Block = styled.button`
   cursor: pointer;
 
   span {
+    white-space: nowrap;
     font-family: "Pretendard";
     font-style: normal;
     font-weight: 700;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { axiosInstance } from "../../apis/axiosInstance";
+import { getStudyList } from "../../apis/axiosInstance";
 import Banner from "../../components/common/Banner/Banner";
 import OccupationFilter from "../../components/common/OccupationFilter/OccupationFilter";
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
@@ -27,18 +27,6 @@ const Study = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterMenuType>("전체");
   const [studyList, setStudyList] = useState<StudyPost[]>();
   const { isToggled, handleToggleButtonClick } = useToggle();
-
-  const getStudyList = async (page: number, status: boolean) => {
-    try {
-      const response = await axiosInstance.get(
-        `/study?page=${page}&status=${status}`
-      );
-
-      return response.data;
-    } catch (error) {
-      throw new Error("프로젝트 목록 조회 실패");
-    }
-  };
 
   useEffect(() => {
     getStudyList(1, isToggled).then((res) => setStudyList(res.data));

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FilterMenuType } from "../../utils/Filter";
 import Banner from "../../components/common/Banner/Banner";
-import SmallCards from "../../components/common/Cards/SmallCards";
 import OccupationFilter from "../../components/common/OccupationFilter/OccupationFilter";
 import TechStackFilter from "../../components/pages/Project/TechStackFilter";
 import RecruitToggle from "../../components/common/RecruitToggle/RecruitToggle";
 import { getProjectList } from "../../apis/axiosInstance";
+import SmallProjectCards from "../../components/pages/Project/SmallProjectCards";
+import useToggle from "../../hooks/RecruitToggle/useToggle";
 
 export interface ProjectMember {
   projectArticleId: number;
@@ -28,7 +29,7 @@ export interface ProjectPost {
 const Project = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterMenuType>("전체");
   const [projectList, setProjectList] = useState<ProjectPost[]>();
-  const [isToggled, setIsToggled] = useState(false);
+  const { isToggled, handleToggleButtonClick } = useToggle();
 
   useEffect(() => {
     getProjectList(1, isToggled).then((res) => setProjectList(res.data));
@@ -44,8 +45,11 @@ const Project = () => {
           setSelectedFilter={setSelectedFilter}
         />
         <TechStackFilter occupation={selectedFilter} />
-        <RecruitToggle isToggled={isToggled} setIsToggled={setIsToggled} />
-        <SmallCards data={projectList} type="project" />
+        <RecruitToggle
+          isToggled={isToggled}
+          handleToggleButtonClick={handleToggleButtonClick}
+        />
+        <SmallProjectCards data={projectList} />
       </InnerContainer>
     </ProjectContainer>
   );

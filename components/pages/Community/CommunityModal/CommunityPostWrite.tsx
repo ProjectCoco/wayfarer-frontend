@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useForm from "../../../../hooks/Write/useForm";
+import useForm from "../../../../hooks/Write/useCommunityForm";
 import Asterisk from "../../../common/Input/Asterisk";
 import Label from "../../write/Label";
 import LabelBlock from "../../write/LabelBlock";
@@ -19,7 +19,7 @@ const CommunityWrite = () => {
           customInput={
             <WriteInput
               placeholder="토픽을 선택해주세요."
-              value={form.summary}
+              value={form.topic}
               name={"topic"}
               onChange={handleChange}
             />

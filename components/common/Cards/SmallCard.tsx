@@ -8,27 +8,28 @@ import {
 } from "../../../public/Cards/SmallCards";
 import SmallCardHover from "./SmallCardHover";
 import { ProjectMember } from "../../../pages/project";
+import { StudyMember } from "../../../pages/study";
 
 interface SmallCardProps {
-  members: ProjectMember[];
-  skills: string[];
+  members: ProjectMember[] | StudyMember[];
   tags: string[];
   startTime: string;
   title: string;
   type: "project" | "study";
+  skills?: string[];
 }
 
 const SmallCard = ({
   members,
-  skills,
   tags,
   startTime,
   title,
   type,
+  skills,
 }: SmallCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
-  const getPosition = (members: ProjectMember[]) => {
+  const getPosition = (members: ProjectMember[] | StudyMember[]) => {
     let membersPositions = members.map((member) => member.position);
     let positionList = ["frontend", "backend", "planner", "designer"];
 

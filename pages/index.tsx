@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import styled from "styled-components";
 import Banner from "../components/common/Banner/Banner";
 import SubBanner from "../components/common/Banner/SubBanner";
-import SmallCards from "../components/common/Cards/SmallCards";
 import BigCards from "../components/pages/Home/BigCards";
 import CardsHeader from "../components/pages/Home/CardsHeader";
 
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
       <SubBanner />
       <SmallCardsContainer>
         <CardsHeader title={"모든 사이드 프로젝트를 모아모아"} />
-        {/* <SmallCards /> */}
       </SmallCardsContainer>
     </HomeContainer>
   );

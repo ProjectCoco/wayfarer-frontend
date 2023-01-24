@@ -1,21 +1,43 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+import { createStudy } from "../../apis/axiosInstance";
+import { dateProcessing, memberProcessing } from "../../utils/write/utiles";
 
 interface StudyForm {
   title: string;
-  summary: string[];
-  recruit: string;
-  start: [string, string, string];
+  projectTags: string[];
+  projectMember: string[][];
+  startTime: [string, string, string];
   content: string;
 }
 
-function useForm() {
+function useStudyForm() {
   const [form, setForm] = useState<StudyForm>({
     title: "",
-    summary: [],
-    recruit: "",
-    start: ["", "", ""],
+    projectTags: [],
+    projectMember: [],
+    startTime: ["", "", ""],
     content: "",
   });
+
+  const [memberNum, setMemberNum] = useState(1);
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      projectMember: [...form.projectMember, ["", "1명"]],
+    });
+  }, [memberNum]);
+
+  const handleRecruit = (idx: number, idx2: number, value: string) => {
+    setForm({
+      ...form,
+      projectMember: form.projectMember.map((item, i) => {
+        if (i === idx) item[idx2] = value;
+        return item;
+      }),
+    });
+  };
 
   const handleChange = (
     e:
@@ -29,25 +51,31 @@ function useForm() {
     });
   };
 
-  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (form.summary.length > 5) return;
+  const handleAddTag = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    type: "projectTags" | "projectSkills"
+  ) => {
+    if (form["projectTags"].length > 5) return;
 
-    if (form.summary.includes(e.currentTarget.value))
+    if (form["projectTags"].includes(e.currentTarget.value))
       return alert("중복된 태그입니다.");
 
     if (e.key === " " && e.currentTarget.value !== "") {
       setForm({
         ...form,
-        summary: [...form.summary, e.currentTarget.value],
+        [type]: [...form["projectTags"], e.currentTarget.value],
       });
       e.currentTarget.value = "";
     }
   };
 
-  const handleRemoveTag = (tag: string) => {
+  const handleRemoveTag = (
+    tag: string,
+    type: "projectTags" | "projectSkills"
+  ) => {
     setForm({
       ...form,
-      summary: form.summary.filter((t) => t !== tag),
+      projectTags: form["projectTags"].filter((t) => t !== tag),
     });
   };
 
@@ -55,27 +83,39 @@ function useForm() {
     if (type === "year") {
       setForm({
         ...form,
-        start: [date, form.start[1], form.start[2]],
+        startTime: [date, form.startTime[1], form.startTime[2]],
       });
     }
     if (type === "month") {
       setForm({
         ...form,
-        start: [form.start[0], date, form.start[2]],
+        startTime: [form.startTime[0], date, form.startTime[2]],
       });
     }
     if (type === "day") {
       setForm({
         ...form,
-        start: [form.start[0], form.start[1], date],
+        startTime: [form.startTime[0], form.startTime[1], date],
       });
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.info("StudyForm");
-    console.info(form);
+    const memberArr = memberProcessing(form.projectMember);
+    const validDate = dateProcessing(form.startTime);
+    const requestForm = {
+      ...form,
+      projectMember: memberArr,
+      startTime: validDate,
+    };
+
+    createStudy(requestForm);
+  };
+
+  const handleAddMember = () => {
+    if (memberNum >= 5) return;
+    setMemberNum((prev) => prev + 1);
   };
 
   return {
@@ -85,7 +125,10 @@ function useForm() {
     handleRemoveTag,
     handleDateChange,
     handleSubmit,
+    handleAddMember,
+    handleRecruit,
+    memberNum,
   };
 }
 
-export default useForm;
+export default useStudyForm;

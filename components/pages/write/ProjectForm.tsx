@@ -21,7 +21,7 @@ import SubmitButton from "./SubmitButton";
 import AddPeople from "./AddPeople";
 import TagHelper from "./TagHelper";
 
-function WriteForm() {
+function ProjectForm() {
   const {
     form,
     memberNum,
@@ -162,7 +162,7 @@ function WriteForm() {
   );
 }
 
-export default WriteForm;
+export default ProjectForm;
 
 const Form = styled.form`
   position: relative;

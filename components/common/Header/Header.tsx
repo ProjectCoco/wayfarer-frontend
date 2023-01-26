@@ -3,9 +3,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
+import { useDialog } from "../../../context/DialogContext";
 import useHeaderScroll from "../../../hooks/Header/useHeaderScroll";
 import useMenuSelect from "../../../hooks/Header/useMenuSelect";
 import LogoImg from "../../../public/Logo/Logo.svg";
+import SignInDialog from "../../modal/SignIn/SignInDialog";
 
 export const HeaderMenus = [
   { name: "홈", route: "/" },
@@ -15,6 +17,7 @@ export const HeaderMenus = [
 ];
 
 const Header = () => {
+  const dialog = useDialog();
   const router = useRouter();
   const { isScrolled } = useHeaderScroll();
   const { selected, setSelected, onTabClick } = useMenuSelect(router.pathname);
@@ -42,7 +45,17 @@ const Header = () => {
             </Link>
           ))}
         </MenuTabs>
-        <Login>로그인</Login>
+        <Login
+          onClick={() => {
+            dialog.open({
+              contentNode: <SignInDialog />,
+              onConfirm: () => console.log("confirm"),
+              onClose: () => console.log("close"),
+            });
+          }}
+        >
+          로그인
+        </Login>
       </Tabs>
     </HeaderContainer>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import ButtonBox from "./ButtonBox";
 import DialogHeader from "./DialogHeader";
-import SocialButton from "./SocialButton";
 
 function SignInDialog() {
   return (

@@ -1,7 +1,6 @@
-export interface CreateProject {
+export interface CreateStudy {
   title: string;
   projectTags: string[];
-  projectSkills: string[];
   projectMember: Member[];
   content: string;
   startTime: string;

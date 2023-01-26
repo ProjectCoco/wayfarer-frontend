@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import SocialButton from "./SocialButton";
-import GoogleIcon from "../../public/social/google.svg";
-import KakaoIcon from "../../public/social/kakao.svg";
-import NaverIcon from "../../public/social/naver.svg";
+import GoogleIcon from "../../../public/social/google.svg";
+import KakaoIcon from "../../../public/social/kakao.svg";
+import NaverIcon from "../../../public/social/naver.svg";
 
 function ButtonBox() {
   return (

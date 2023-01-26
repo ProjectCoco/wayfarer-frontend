@@ -16,19 +16,23 @@ import {
   getDay,
 } from "../../../utils/writeMenu";
 import DropDownList from "./DropDownList";
+import useForm from "../../../hooks/Write/useStudyForm";
 import SubmitButton from "./SubmitButton";
-import useStudyForm from "../../../hooks/Write/useStudyForm";
+import AddPeople from "./AddPeople";
 import TagHelper from "./TagHelper";
 
 function StudyForm() {
   const {
     form,
+    memberNum,
     handleChange,
     handleAddTag,
     handleRemoveTag,
     handleDateChange,
     handleSubmit,
-  } = useStudyForm();
+    handleAddMember,
+    handleRecruit,
+  } = useForm();
   return (
     <Form onSubmit={handleSubmit}>
       <LabelBlock
@@ -47,32 +51,51 @@ function StudyForm() {
         customInput={
           <TagInput
             placeholder="#프로젝트를 키워드로 표현해주세요 (최대 5개 입력)"
-            type="summary"
+            type="projectTags"
             handleAddTag={handleAddTag}
             handleRemoveTag={handleRemoveTag}
-            tags={form.summary}
+            tags={form.projectTags}
           />
         }
       />
       <LabelBlock
         label={<Label label="모집인원" icon={<Asterisk />} />}
         customInput={
-          <DropDownList
-            icons={[
-              <DropDown
-                width="102px"
-                menuItems={jobGroup}
-                defaultValue="직군 선택하기"
-                handleClick={() => console.log("직군")}
-              />,
-              <DropDown
-                width="41px"
-                menuItems={recruitNumber}
-                defaultValue="1명"
-                handleClick={() => console.log("인원")}
-              />,
-            ]}
-          />
+          <FlexBox>
+            <FlexBox1>
+              {Array.from({ length: memberNum }).map((_, i) => (
+                <DropDownList
+                  icons={[
+                    <DropDown
+                      width="102px"
+                      menuItems={jobGroup}
+                      defaultValue="직군 선택하기"
+                      value={
+                        form.projectMember[i]
+                          ? form.projectMember[i][0]
+                          : "직군 선택하기"
+                      }
+                      handleClick={(item) => {
+                        handleRecruit(i, 0, item);
+                      }}
+                    />,
+                    <DropDown
+                      width="41px"
+                      menuItems={recruitNumber}
+                      defaultValue="1명"
+                      value={
+                        form.projectMember[i] ? form.projectMember[i][1] : "1명"
+                      }
+                      handleClick={(item) => {
+                        handleRecruit(i, 1, item);
+                      }}
+                    />,
+                  ]}
+                />
+              ))}
+            </FlexBox1>
+            <AddPeople onClick={() => handleAddMember()} />
+          </FlexBox>
         }
       />
       <LabelBlock
@@ -84,7 +107,7 @@ function StudyForm() {
                 width="64px"
                 menuItems={getYear()}
                 defaultValue={"YYYY년"}
-                value={form.start[0]}
+                value={form.startTime[0]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "year");
                 }}
@@ -93,7 +116,7 @@ function StudyForm() {
                 width="56px"
                 menuItems={getMonth}
                 defaultValue={"MM월"}
-                value={form.start[1]}
+                value={form.startTime[1]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "month");
                 }}
@@ -102,7 +125,7 @@ function StudyForm() {
                 width="51px"
                 menuItems={getDay}
                 defaultValue={"DD일"}
-                value={form.start[2]}
+                value={form.startTime[2]}
                 handleClick={(date: string) => {
                   handleDateChange(date, "day");
                 }}
@@ -135,4 +158,16 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 25px;
+`;
+
+const FlexBox1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

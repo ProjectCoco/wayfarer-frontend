@@ -1,3 +1,8 @@
+interface Member {
+  position: string;
+  totalMember: number;
+}
+
 export interface CreateProject {
   title: string;
   projectTags: string[];
@@ -7,7 +12,14 @@ export interface CreateProject {
   startTime: string;
 }
 
-interface Member {
-  position: string;
+export interface ReadProject {
+  projectArticleId: number;
+  title: string;
+  enabled: string;
+  content: string;
+  projectTags: string[];
   totalMember: number;
+  countMember: null;
+  startTime: Date;
+  status: string;
 }

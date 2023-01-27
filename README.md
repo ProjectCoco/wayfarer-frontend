@@ -22,9 +22,9 @@
 
 
 ### Back-end
-| Java | Spring<br>Boot | Spring<br>Security | MySQL | AWS |
-| :---: | :---: | :---: | :---: | :---: |
-| <img src="https://cdn-icons-png.flaticon.com/512/5968/5968282.png" alt="icon" width="65" height="65" /> | <img alt="spring-boot logo" src="https://t1.daumcdn.net/cfile/tistory/27034D4F58E660F616" width="65" height="65" >| <img alt="security logo" src="https://user-images.githubusercontent.com/44282342/190943312-b9cb7da5-d189-42f0-96e8-1f293cd26379.svg" height="65" width="65" > | <img src="https://i.pinimg.com/originals/09/7b/34/097b349ab1d78c15744c3a89ff457939.png" alt="icon" width="65" height="65" /> |<img src="https://lavca.org/app/uploads/2019/10/aws-logo-square.png" alt="icon" width="65" height="65" /> |
+| Java | Spring<br>Boot | Spring<br>Security | MySQL | AWS<br>EC2 | AWS<br>RDS | Docker | Jenkins |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| <img src="https://cdn-icons-png.flaticon.com/512/5968/5968282.png" alt="icon" width="65" height="65" /> | <img alt="spring-boot logo" src="https://t1.daumcdn.net/cfile/tistory/27034D4F58E660F616" width="65" height="65" >| <img alt="security logo" src="https://user-images.githubusercontent.com/44282342/190943312-b9cb7da5-d189-42f0-96e8-1f293cd26379.svg" height="65" width="65" > | <img src="https://i.pinimg.com/originals/09/7b/34/097b349ab1d78c15744c3a89ff457939.png" alt="icon" width="65" height="65" /> | <img src="https://user-images.githubusercontent.com/44282342/215008903-97aa8922-9829-4092-b3ee-843dd00ac384.svg" alt="icon" width="65" height="65" /> | <img src="https://user-images.githubusercontent.com/44282342/215008974-929ad2ff-8568-4362-8baa-3cfd2978b7a3.svg" alt="icon" width="65" height="65" /> | <img src="https://lavca.org/app/uploads/2019/10/aws-logo-square.png" alt="icon" width="65" height="65" /> | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="icon" width="65" height="87" /> |
 
 ### Communication
 | Git | Github | Discord | Notion | Figma
@@ -35,7 +35,12 @@
 
 ## 🚀 서비스 아키텍쳐
 
+![wayfarer drawio](https://user-images.githubusercontent.com/44282342/214735805-bed9215a-55e9-4eff-98da-70af5cf8e102.png)
+
 <br>
+
+![wayfarer drawio (1)](https://user-images.githubusercontent.com/44282342/214735797-9dc79268-0c07-47e9-819d-ded5b4824b68.png)
+
 
 ## 🚀 팀원
 
@@ -62,8 +67,8 @@ npm run start
 
 ### BackEnd
 ```
-./gradlew build
-java -jar build/libs/coco-*-SNAPSHOT.jar
+./gradlew :application:clean :application:build
+java -jar build/libs/application-0.0.1-SNAPSHOT.jar
 ```
 
 <br>

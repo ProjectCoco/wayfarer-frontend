@@ -21,7 +21,7 @@ const BigCardHover = (data: BigCardProps) => {
                 <Image src={TechStackImg[el as TechStackImgType]} alt={el} />
               </div>
             ) : (
-              <div>e</div>
+              <div>{el[0].toUpperCase()}</div>
             )
           )}
           <span>

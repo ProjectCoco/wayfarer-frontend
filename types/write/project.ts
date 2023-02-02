@@ -15,11 +15,18 @@ export interface CreateProject {
 export interface ReadProject {
   projectArticleId: number;
   title: string;
-  enabled: string;
   content: string;
   projectTags: string[];
-  totalMember: number;
-  countMember: null;
+  projectSkills: string[];
+  projectMemberResponses: ProjectMemberResponse[];
   startTime: Date;
+  createdTime: Date;
   status: string;
+}
+
+export interface ProjectMemberResponse {
+  projectArticleId: number;
+  position: string;
+  totalMember: number;
+  countMember: number;
 }

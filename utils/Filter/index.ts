@@ -33,9 +33,9 @@ export const TabTechStacks = {
   },
   백엔드: {
     Java: false,
+    Kotlin: false,
     Nodejs: false,
     Python: false,
-    Kotlin: false,
     MongoDB: false,
     MySQL: false,
     MariaDB: false,
@@ -53,7 +53,7 @@ export const TabTechStacks = {
     Sketch: false,
     Ai: false,
     Ps: false,
-    Id: false,
+    InDesign: false,
     Ae: false,
   },
   기획: {
@@ -61,7 +61,7 @@ export const TabTechStacks = {
   },
   모바일: {
     Flutter: false,
-    Kotilin: false,
+    Swift: false,
   },
 };
 

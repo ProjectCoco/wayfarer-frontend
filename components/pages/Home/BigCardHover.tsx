@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { TechStackImg, TechStackImgType } from "../../../public/TechStackImg";
 import { BigCardProps } from "./BigCards";
 import LikeButton from "./LikeButton";
 
@@ -14,9 +15,15 @@ const BigCardHover = (data: BigCardProps) => {
         </ProjectHeader>
         <ProjectMemeber>{data.memeber.join(" / ")}</ProjectMemeber>
         <Stacks>
-          {data.stack.slice(0, 4).map((el, idx) => (
-            <div key={idx}>{el}</div>
-          ))}
+          {data.stack.slice(0, 4).map((el, idx) =>
+            TechStackImg[el as TechStackImgType] ? (
+              <div key={idx}>
+                <Image src={TechStackImg[el as TechStackImgType]} alt={el} />
+              </div>
+            ) : (
+              <div>e</div>
+            )
+          )}
           <span>
             {data.stack.length > 4 ? ` + ${data.stack.length - 4}` : ""}
           </span>

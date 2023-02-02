@@ -1,7 +1,9 @@
+import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import { ProjectMember } from "../../../pages/project";
 import { StudyMember } from "../../../pages/study";
+import { TechStackImg, TechStackImgType } from "../../../public/TechStackImg";
 import SmallLikeButton from "./SmallLikeButton";
 
 interface SmallCardHoverProps {
@@ -30,9 +32,15 @@ const SmallCardHover = ({ skills, members, title }: SmallCardHoverProps) => {
         </ProjectMemeber>
         {skills ? (
           <Stacks>
-            {skills.slice(0, 4).map((el, idx) => (
-              <div key={idx}>{el[0]}</div>
-            ))}
+            {skills.slice(0, 4).map((el, idx) =>
+              TechStackImg[el as TechStackImgType] ? (
+                <div key={idx}>
+                  <Image src={TechStackImg[el as TechStackImgType]} alt={el} />
+                </div>
+              ) : (
+                <div>{el[0].toUpperCase()}</div>
+              )
+            )}
             <span>{skills.length > 4 ? ` + ${skills.length - 4}` : ""}</span>
           </Stacks>
         ) : (

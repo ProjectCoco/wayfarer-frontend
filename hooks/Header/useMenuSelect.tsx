@@ -11,7 +11,7 @@ const useMenuSelect = (pathname: string) => {
   useEffect(() => {
     if (pathname) {
       setSelected(
-        HeaderMenus.filter((menu) => menu.route === pathname)[0].name
+        HeaderMenus.filter((menu) => pathname.includes(menu.route))[0].name
       );
     }
   }, []);

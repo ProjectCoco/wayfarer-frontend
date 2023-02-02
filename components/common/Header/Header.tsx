@@ -23,41 +23,50 @@ const Header = () => {
   const { selected, setSelected, onTabClick } = useMenuSelect(router.pathname);
 
   return (
-    <HeaderContainer isScrolled={isScrolled}>
-      <Image
-        src={LogoImg}
-        alt="WayfarerLogo"
-        onClick={() => {
-          setSelected("홈");
-          router.push("/");
-        }}
-      />
-      <Tabs>
-        <MenuTabs>
-          {HeaderMenus.map((el) => (
-            <Link href={el.route} key={el.name}>
-              <span
-                className={`${el.name === selected ? "selected" : ""}`}
-                onClick={() => onTabClick(el.name)}
-              >
-                {el.name}
-              </span>
-            </Link>
-          ))}
-        </MenuTabs>
-        <Login
+    <>
+      <HeaderContainer isScrolled={isScrolled}>
+        <Image
+          src={LogoImg}
+          alt="WayfarerLogo"
           onClick={() => {
-            dialog.open({
-              contentNode: <SignInDialog />,
-              onConfirm: () => console.log("confirm"),
-              onClose: () => console.log("close"),
-            });
+            setSelected("홈");
+            router.push("/");
           }}
-        >
-          로그인
-        </Login>
-      </Tabs>
-    </HeaderContainer>
+        />
+        <Tabs>
+          <MenuTabs>
+            {HeaderMenus.map((el) => (
+              <Link href={el.route} key={el.name}>
+                <span
+                  className={`${el.name === selected ? "selected" : ""}`}
+                  onClick={() => onTabClick(el.name)}
+                >
+                  {el.name}
+                </span>
+              </Link>
+            ))}
+          </MenuTabs>
+          <Login
+            onClick={() => {
+              dialog.open({
+                contentNode: <SignInDialog />,
+                onConfirm: () => console.log("confirm"),
+                onClose: () => console.log("close"),
+              });
+            }}
+          >
+            로그인
+          </Login>
+        </Tabs>
+      </HeaderContainer>
+      {HeaderMenus.map((el) => el.route).filter(
+        (el) => el === router.pathname
+      )[0] ? (
+        <></>
+      ) : (
+        <HeaderArea />
+      )}
+    </>
   );
 };
 
@@ -106,4 +115,9 @@ const MenuTabs = styled.div`
 const Login = styled.div`
   color: #ffffff;
   cursor: pointer;
+`;
+
+const HeaderArea = styled.div`
+  width: 100%;
+  height: 100px;
 `;

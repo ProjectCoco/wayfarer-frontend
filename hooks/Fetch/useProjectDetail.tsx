@@ -8,10 +8,12 @@ function useProjectDetail(projectId: number) {
 
   useEffect(() => {
     setIsLoading(true);
-    getProject(1).then((data) => {
-      setData(data);
-      setIsLoading(false);
-    });
+    if (projectId) {
+      getProject(projectId).then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+    }
   }, [projectId]);
 
   return {

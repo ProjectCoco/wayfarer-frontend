@@ -13,8 +13,6 @@ function ProjectDetail() {
   const { data: project } = useProjectDetail(+projectId!);
   const { isDrop, ref, handleChangeDrop } = useDropDown();
 
-  console.log(project);
-
   if (!project) return <div>...Loading</div>;
 
   const createdDate = new Date(project.createdTime);
@@ -46,7 +44,7 @@ function ProjectDetail() {
       <Detail>
         <RecruitMember>
           <h1>모집인원</h1>
-          <p>
+          <div>
             {project.projectMemberResponses.map((obj, idx) => (
               <Member key={idx}>
                 <p>{obj.position}</p>
@@ -56,7 +54,7 @@ function ProjectDetail() {
                 </CountMember>
               </Member>
             ))}
-          </p>
+          </div>
         </RecruitMember>
         <TechStack>
           <h1>기술/언어</h1>

@@ -1,21 +1,18 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
-import Footer from "../components/common/Footer/Footer";
-import Header from "../components/common/Header/Header";
-import { DialogProvider } from "../context/DialogContext";
 import { defaultTheme } from "../styles/DefaultTheme";
 import GlobalStyle from "../styles/GlobalStyle";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
-        <GlobalStyle />
-        <DialogProvider>
-          <Header />
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
           <Component {...pageProps} />
-        </DialogProvider>
-        <Footer />
+        </QueryClientProvider>
       </ThemeProvider>
     </>
   );

@@ -1,23 +1,22 @@
+import { atom } from "jotai";
+import { useAtom } from "jotai/react";
 import type { NextPage } from "next";
 import styled from "styled-components";
-import Banner from "../components/common/Banner/Banner";
-import SubBanner from "../components/common/Banner/SubBanner";
-import BigCards from "../components/pages/Home/BigCards";
-import CardsHeader from "../components/pages/Home/CardsHeader";
+
+const productAtom = atom({ id: 12, name: "good stuff" });
 
 const Home: NextPage = () => {
+  const [product, setProduct] = useAtom(productAtom);
   return (
     <HomeContainer>
-      <Banner text={"모집글 작성하기"} />
-      <BigCardsContainer>
-        <BigCards title={"지금 뜨는 사이드 프로젝트 보러 갈까요? 🚀"} />
-        <BigCards title={"따끈따끈한 신규 스터디 구경해보세요 👀"} />
-        <BigCards title={"지금 당신에게 필요한 인사이트 ✏️"} />
-      </BigCardsContainer>
-      <SubBanner />
-      <SmallCardsContainer>
-        <CardsHeader title={"모든 사이드 프로젝트를 모아모아"} />
-      </SmallCardsContainer>
+      <div>{product.name}</div>
+      <button
+        onClick={() => {
+          setProduct((prev) => ({ ...prev, name: "good day" }));
+        }}
+      >
+        체인지 아톰
+      </button>
     </HomeContainer>
   );
 };

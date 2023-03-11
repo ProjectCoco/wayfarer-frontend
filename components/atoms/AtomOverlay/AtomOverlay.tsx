@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-interface AtomOverlayProps {
+export interface AtomOverlayProps {
   visible: boolean;
 }
 

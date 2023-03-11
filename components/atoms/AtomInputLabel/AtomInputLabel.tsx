@@ -20,12 +20,12 @@ export default AtomInputLabel;
 const Box = styled.div`
   display: flex;
   gap: 4px;
-`;
-
-const Label = styled.label<{ error?: boolean }>`
-  font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+`;
+
+const Label = styled.label`
+  font-weight: 500;
   color: #222222;
   letter-spacing: -0.03em;
 `;
@@ -33,6 +33,4 @@ const Label = styled.label<{ error?: boolean }>`
 const Asterisk = styled.span`
   color: #ff7262;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
 `;

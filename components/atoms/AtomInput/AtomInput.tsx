@@ -1,11 +1,11 @@
 import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface AtomInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
 }
 
-const AtomInput = ({ ...props }: InputProps) => {
+const AtomInput = ({ ...props }: AtomInputProps) => {
   return <StyledInput {...props} />;
 };
 
@@ -29,5 +29,6 @@ const StyledInput = styled.input<{ error?: boolean }>`
 
   &:focus {
     outline: none;
+    border-bottom: solid 1px #222222;
   }
 `;

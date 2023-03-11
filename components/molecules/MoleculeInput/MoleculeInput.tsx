@@ -23,7 +23,7 @@ const MoleculeInput = ({
   const [focus, setFocus] = useState(false);
 
   const handleFocus = useCallback((value: boolean) => {
-    setFocus(value);
+    setFocus((prev) => (prev !== value ? value : prev));
   }, []);
 
   return (

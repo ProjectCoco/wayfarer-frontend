@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 interface AtomInputLabelProps {
   title: string;
-  error?: boolean;
   asterisk?: boolean;
 }
 
-const AtomInputLabel = ({ title, asterisk, error }: AtomInputLabelProps) => {
+const AtomInputLabel = ({ title, asterisk }: AtomInputLabelProps) => {
   return (
     <Box>
-      <Label error={error}>{title}</Label>
+      <Label>{title}</Label>
       {asterisk && <Asterisk>*</Asterisk>}
     </Box>
   );
@@ -27,7 +26,7 @@ const Label = styled.label<{ error?: boolean }>`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: ${({ error }) => (error ? "#F94A4A" : "#222222")};
+  color: #222222;
   letter-spacing: -0.03em;
 `;
 

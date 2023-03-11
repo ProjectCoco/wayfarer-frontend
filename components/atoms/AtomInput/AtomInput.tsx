@@ -23,7 +23,7 @@ const StyledInput = styled.input<{ error?: boolean }>`
     font-size: 15px;
     line-height: 18px;
     letter-spacing: -0.03em;
-    color: "#222222";
+    color: #222222;
     opacity: 0.3;
   }
 

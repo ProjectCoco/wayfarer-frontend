@@ -24,7 +24,7 @@ const Box = styled.div`
   line-height: 17px;
 `;
 
-const Label = styled.label<{ error?: boolean }>`
+const Label = styled.label`
   font-weight: 500;
   color: #222222;
   letter-spacing: -0.03em;

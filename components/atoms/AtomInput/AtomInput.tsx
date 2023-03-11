@@ -29,6 +29,7 @@ const StyledInput = styled.input<{ error?: boolean }>`
 
   &:focus {
     outline: none;
-    border-bottom: solid 1px #222222;
+    border-bottom: ${({ error }) =>
+      error ? "solid 1px #F94A4A" : "solid 1px #222222"};
   }
 `;

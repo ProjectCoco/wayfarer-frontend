@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-interface AtomInputLabelProps {
+export interface AtomInputLabelProps {
   title: string;
   asterisk?: boolean;
 }

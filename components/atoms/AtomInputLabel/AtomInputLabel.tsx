@@ -4,13 +4,18 @@ import styled from "styled-components";
 export interface AtomInputLabelProps {
   title: string;
   asterisk?: boolean;
+  asteriskColor?: string;
 }
 
-const AtomInputLabel = ({ title, asterisk }: AtomInputLabelProps) => {
+const AtomInputLabel = ({
+  title,
+  asterisk,
+  asteriskColor,
+}: AtomInputLabelProps) => {
   return (
     <Box>
       <Label>{title}</Label>
-      {asterisk && <Asterisk>*</Asterisk>}
+      {asterisk && <Asterisk color={asteriskColor}>*</Asterisk>}
     </Box>
   );
 };
@@ -30,7 +35,7 @@ const Label = styled.label`
   letter-spacing: -0.03em;
 `;
 
-const Asterisk = styled.span`
-  color: #ff7262;
+const Asterisk = styled.span<{ color?: string }>`
+  color: ${({ color }) => color ?? "#ff7262"};
   font-weight: 500;
 `;
